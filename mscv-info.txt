@@ -1,0 +1,21 @@
+Generar la estructura en base a que tablas tocaria cada microservicio, en caso de muchas conexiones, encapsularlo en un microservicio.
+
+Recorrido del viaje va dentro del monopatín.
+
+Para GPS de monopatin, usar un endpoint que tenga un wrapper ya creado de internet.
+
+Velocidad estática del monopatín para hacer los calculos del recorrido y la tarifa.
+
+Microservicios Administracion, Cliente y Usuario, tres distintos.
+
+Monopatín y Parada pueden ser uno, parada iría dentro de monopatín.
+
+Tabla tarifa y facturación dentro de Administración.
+
+Tabla referido a lo de JWT en Usuario.
+
+Tabla pago dentro de Cliente.
+
+Hay que usar una MongoDB para un microservicio, el resto todo MySQL.
+
+Posiblemente Recorrido sea MongoDB.
