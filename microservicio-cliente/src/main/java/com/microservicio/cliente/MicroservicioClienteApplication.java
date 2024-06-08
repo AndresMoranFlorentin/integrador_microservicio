@@ -1,13 +1,13 @@
-package com.microservicio.parada;
+package com.microservicio.cliente;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MicroservicioParadaApplication {
+public class MicroservicioClienteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MicroservicioParadaApplication.class, args);
+		SpringApplication.run(MicroservicioClienteApplication.class, args);
 	}
 
 }

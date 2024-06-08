@@ -7,11 +7,11 @@
 		<artifactId>app_microservicio</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.microservicio.parada</groupId>
-	<artifactId>microservicio-parada</artifactId>
+	<groupId>com.microservicio.cliente</groupId>
+	<artifactId>microservicio-cliente</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservicio-parada</name>
-	<description>Spring Boot Microservicio Parada</description>
+	<name>microservicio-cliente</name>
+	<description>Spring Boot Microservicio Cliente</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>

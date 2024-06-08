@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: msvc-parada
+    name: msvc-cliente
   config:
     import: optional:configserver:http://localhost:8888
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/paradadb
+    url: jdbc:mysql://localhost:3306/clientedb
     username: root
   jpa:
     hibernate:
