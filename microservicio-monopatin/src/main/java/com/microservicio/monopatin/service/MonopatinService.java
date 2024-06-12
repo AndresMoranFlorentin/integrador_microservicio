@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MonopatinService {
+
     @Autowired
     private MonopatinRepository monopatinRepository;
+
 }
