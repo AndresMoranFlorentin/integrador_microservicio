@@ -28,6 +28,8 @@ public class Viaje {
     private Long idMonopatin;
     @Column
     private Long idCuenta;
+    @Column
+    private Long idUsuario;
 
 
 }
