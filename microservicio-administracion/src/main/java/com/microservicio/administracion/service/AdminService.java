@@ -1,18 +1,42 @@
 package com.microservicio.administracion.service;
 
+import com.microservicio.administracion.client.MonopatinClient;
 import com.microservicio.administracion.entity.Administrador;
+import com.microservicio.administracion.http.response.MonopatinDTO;
+import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
+import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import com.microservicio.administracion.repository.AdminRepository;
-import com.microservicio.administracion.service.dto.request.AdministradorRequestDTO;
+import com.microservicio.administracion.http.request.AdministradorRequestDTO;
 import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
 import com.microservicio.administracion.service.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminService {
+
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private MonopatinClient monopatinClient;
+
+    @Transactional
+    public ReporteMonopatinesDTO getReporteMonopatines(){
+        ReporteMonopatinesDTO rmDTO = monopatinClient.getReporteMonopatines();
+        return rmDTO;
+    }
+
+    @Transactional
+    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int año, int minViajes){
+        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(año, minViajes);
+        return MonopatinconXViajesResponseDTO.builder()
+                .monopatines(monopatines)
+                .build();
+    }
 
     @Transactional
     public AdministradorResponseDTO getAdministrador(Long id_admin) throws NotFoundException {
