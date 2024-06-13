@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -16,5 +17,5 @@ public class CuentaDto {
     @Column
     private Float monto;
     @Column
-    private LocalDate fecha_de_alta;
+    private LocalDateTime fecha_de_alta;
 }

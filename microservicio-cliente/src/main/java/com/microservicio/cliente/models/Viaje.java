@@ -1,4 +1,4 @@
-package com.microservicio.cliente.dto;
+package com.microservicio.cliente.models;
 
 import jakarta.persistence.Column;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ViajeDto {
+public class Viaje {
     @Column
     private Long id_monopatin;
     @Column
@@ -17,7 +17,7 @@ public class ViajeDto {
     private Date inicio;
     @Column
     private Date fin_viaje;
-    public ViajeDto(Long idM, Long idU, Long idC, Date ini, Date fin){
+    public Viaje(Long idM, Long idU, Long idC, Date ini, Date fin){
         this.id_cuenta=idC;
         this.id_monopatin=idM;
         this.id_usuario=idU;

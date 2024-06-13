@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Data
