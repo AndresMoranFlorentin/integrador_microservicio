@@ -2,7 +2,8 @@ package com.microservicio.cliente.controllers;
 
 import com.microservicio.cliente.dto.CuentaDto;
 import com.microservicio.cliente.dto.UsuarioDto;
-import com.microservicio.cliente.dto.ViajeDto;
+import com.microservicio.cliente.models.Monopatin;
+import com.microservicio.cliente.models.Viaje;
 import com.microservicio.cliente.entities.Cuenta;
 import com.microservicio.cliente.entities.Usuario;
 import com.microservicio.cliente.services.ServicioCliente;
@@ -11,13 +12,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cliente")
 public class ControladorCliente {
     @Autowired
     private ServicioCliente servicioCliente;
-
-    @GetMapping("/usar-monopatin/id_usuario/{id_usuario}/ubicacion/{ubicacion}")
+    @GetMapping("/buscar_usuario/{id_usuario}")
+    public ResponseEntity<?> buscarUsuario(@PathVariable("id_usuario")Long id_usuario){
+        Usuario user=servicioCliente.buscarUsuario(id_usuario);
+        return ResponseEntity.ok(user);
+    }
+    @GetMapping("/buscar_cuenta/{id_cuenta}")
+    public ResponseEntity<?> buscarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+        Cuenta cuenta=servicioCliente.buscarCuenta(id_cuenta);
+        return ResponseEntity.ok(cuenta);
+    }
+    @GetMapping("/monopatines-mas-cercanos/ubicacion/{ubicacion}")
+    public ResponseEntity<?> getMonopatinesMasCerca(@PathVariable("ubicacion")String ubicacion){
+       List<Monopatin> monopatinesCer=servicioCliente.getMonopatinesCercanos(ubicacion);
+       if(monopatinesCer.isEmpty()){
+           return ResponseEntity.ok("no se encontraron monopatines cercanos a su ubicacion");
+       }
+        return ResponseEntity.ok(monopatinesCer);
+    }
+    @GetMapping("/usar-monopatin/{id_usuario}/{ubicacion}")
     public ResponseEntity<?> usarMonoPatin(@PathVariable("id_usuario")Long id_usuario,@PathVariable("ubicacion")String ubicacion){
         UsuarioDto cuenta=servicioCliente.existeCuenta(id_usuario);
         //en caso de que no encontro la cuenta se retornara un mensaje de error
@@ -26,27 +46,27 @@ public class ControladorCliente {
                     "antes de pedir el servicio del monopatin");
         }
         //en caso de que exista ese usuario entonces si podra pedir el viaje
-        ViajeDto viaje=servicioCliente.pedirViaje(id_usuario,ubicacion);
+        Viaje viaje=servicioCliente.pedirViaje(id_usuario,ubicacion);
 
        return ResponseEntity.ok("su viaje: "+viaje.toString()+" ha iniciado con exito ");
     }
-    @PostMapping("/registrar-usuario/user/{usuario}")
-    public ResponseEntity<?> registrarUsuario(@PathVariable("usuario")Usuario usuario){
+    @PostMapping("/registrar-usuario")
+    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario){
         UsuarioDto nuevo=servicioCliente.registrarUsuario(usuario);
         if(nuevo!=null){
             return ResponseEntity.status(HttpStatus.OK).body("Fue registrado con exito el usuario: "+nuevo.getNombre()+" "+nuevo.getApellido());
         }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error. Por favor intente más tarde. no pudo registrarse");
      }
-     @PostMapping("/agregar-cuenta/cuenta/{cuenta}")
-     public ResponseEntity<?> agregarCuenta(@PathVariable("cuenta") Cuenta cuenta){
+     @PostMapping("/agregar-cuenta")
+     public ResponseEntity<?> agregarCuenta(@RequestBody Cuenta cuenta){
          CuentaDto nuevo=servicioCliente.registrarCuenta(cuenta);
          if(nuevo!=null){
              return ResponseEntity.status(HttpStatus.OK).body("Fue registrado con exito la cuenta: "+nuevo.getNombre()+", expira en: "+nuevo.getFecha_de_alta());
          }
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error. Por favor intente más tarde. no pudo registrarse");
      }
-     @PutMapping("/asignar-cuenta-a-usuario/cuenta/{id_cuenta}/id_usuario/{id_usuario}")
+     @PutMapping("/asignar-cuenta-a-usuario/cuenta/{id_cuenta}/idusuario/{id_usuario}")
     public ResponseEntity<?> asignarUsuarioACuenta(@PathVariable("id_cuenta") Long id_cuenta,@PathVariable("id_usuario")Long id_usuario){
          UsuarioDto nuevo=servicioCliente.asignarCuentaAUsuario(id_cuenta,id_usuario);
          if(nuevo!=null){
@@ -54,7 +74,7 @@ public class ControladorCliente {
          }
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error. Por favor intente más tarde. no pudo asignarse la cuenta dada al usuario");
      }
-     @PutMapping("/descontar-monto/id_cuenta/{id_cuenta}/cobro/{cobro}")
+     @PutMapping("/descontar-monto/idcuenta/{id_cuenta}/cobro/{cobro}")
      public ResponseEntity<?> descontarDeLaCuenta(@PathVariable("id_cuenta")Long id_cuenta, @PathVariable("cobro") Float cobro){
          try{
              return ResponseEntity.status(HttpStatus.OK).body(servicioCliente.descontarDeLaCuenta(id_cuenta,cobro));
@@ -62,7 +82,7 @@ public class ControladorCliente {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. No se pudo editar, revise los campos e intente nuevamente ");
          }
      }
-     @DeleteMapping("/eliminar-cuenta/{id_cuenta}")
+     @DeleteMapping("/eliminar-cuenta/idcuenta/{id_cuenta}")
      public ResponseEntity<?> deleteCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
          try {
              return ResponseEntity.status(HttpStatus.NO_CONTENT).body(servicioCliente.deleteCuenta(id_cuenta));

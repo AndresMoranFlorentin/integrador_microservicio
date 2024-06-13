@@ -3,7 +3,8 @@ package com.microservicio.cliente.services;
 import com.microservicio.cliente.clients.ClientFeignAdministracion;
 import com.microservicio.cliente.dto.CuentaDto;
 import com.microservicio.cliente.dto.UsuarioDto;
-import com.microservicio.cliente.dto.ViajeDto;
+import com.microservicio.cliente.models.Monopatin;
+import com.microservicio.cliente.models.Viaje;
 import com.microservicio.cliente.entities.Cuenta;
 import com.microservicio.cliente.entities.Usuario;
 import com.microservicio.cliente.repositories.RepositoryCuenta;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,18 +36,27 @@ public class ServicioCliente {
         return null;
     }
     @Transactional
-    public ViajeDto pedirViaje(Long id_usuario, String ubicacion) {
-        ViajeDto viaje=clientFeignAdministracion.pedirViaje(id_usuario,ubicacion);
+    public Viaje pedirViaje(Long id_usuario, String ubicacion) {
+        Viaje viaje=clientFeignAdministracion.pedirViaje(id_usuario,ubicacion);
         if(viaje==null){
             return null;
         }
         return viaje;
     }
     @Transactional
+    public List<Monopatin> getMonopatinesCercanos(String ubicacion) {
+        List<Monopatin> lista=clientFeignAdministracion.getMonopatinesMasCercanos(ubicacion);
+        if(lista.isEmpty()){
+            return null;
+        }
+        return lista;
+    }
+    @Transactional
     public UsuarioDto registrarUsuario(Usuario usuario) {
-        Usuario user= repositoryUsuario.findById(usuario.getId_usuario()).orElse(null);
-        if(user!=null){
-            UsuarioDto nuevo=new UsuarioDto(user.getNombre(),user.getCelular(),user.getEmail(), user.getApellido());
+        Usuario existe= repositoryUsuario.findById(usuario.getId_usuario()).orElse(null);
+        if(existe==null){//no existe ese usuario entonces...guardo este nuevo
+            repositoryUsuario.save(usuario);
+            UsuarioDto nuevo=new UsuarioDto(usuario.getNombre(),usuario.getCelular(),usuario.getEmail(), usuario.getApellido());
             return nuevo;
         }
         return null;
@@ -53,9 +64,9 @@ public class ServicioCliente {
     @Transactional
     public CuentaDto registrarCuenta(@PathVariable("cuenta") Cuenta cuenta) {
         Cuenta cuentaN=repositoryCuenta.findById(cuenta.getId_cuenta()).orElse(null);
-        if(cuentaN!=null){
+        if(cuentaN==null){
             repositoryCuenta.save(cuenta);//guardo la cuenta
-            CuentaDto nuevo=new CuentaDto(cuentaN.getNombre_cuenta(),cuentaN.getMonto(),cuentaN.getFecha_de_alta());
+            CuentaDto nuevo=new CuentaDto(cuenta.getNombre_cuenta(),cuenta.getMonto(),cuenta.getFecha_de_alta());
             return nuevo;
         }
         return null;
@@ -117,4 +128,14 @@ public class ServicioCliente {
             throw new Exception(e.getMessage());
         }
     }
+    @Transactional
+    public Usuario buscarUsuario(@PathVariable("id_usuario")Long id_usuario) {
+        return repositoryUsuario.findById(id_usuario).orElse(null);
+    }
+    @Transactional
+    public Cuenta buscarCuenta(@PathVariable("id_cuenta")Long id_cuenta) {
+        Cuenta cuenta =repositoryCuenta.findById(id_cuenta).orElse(null);
+        return cuenta;
+    }
+
 }
