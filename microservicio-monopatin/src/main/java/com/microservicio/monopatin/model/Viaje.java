@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
-import java.util.Date;
 
 @Entity
 @Builder
@@ -21,15 +21,18 @@ public class Viaje {
     private Long idViaje;
 
     @Column
-    private Date inicio;
+    private LocalDateTime inicio;
     @Column
-    private Date fin;
+    private LocalDateTime fin;
     @Column
     private Long idMonopatin;
     @Column
     private Long idCuenta;
     @Column
     private Long idUsuario;
+    @Column
+    private Double costo;
+
 
 
 }
