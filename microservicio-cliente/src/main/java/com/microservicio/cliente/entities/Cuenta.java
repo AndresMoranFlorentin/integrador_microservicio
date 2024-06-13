@@ -22,6 +22,8 @@ public class Cuenta {
     @Column
     private Float monto;
     @Column
+    private boolean habilitado=true;
+    @Column
     private LocalDateTime fecha_de_alta;
     @ManyToMany(mappedBy = "cuentas")
     @JsonIgnore
@@ -43,5 +45,11 @@ public class Cuenta {
         if(resto>=0.00){
             this.monto=resto;
         }
+    }
+    public void deshabilitar(){
+        this.habilitado=false;
+    }
+    public void habilitar(){
+        this.habilitado=true;
     }
 }

@@ -79,9 +79,25 @@ public class ControladorCliente {
          try{
              return ResponseEntity.status(HttpStatus.OK).body(servicioCliente.descontarDeLaCuenta(id_cuenta,cobro));
          }catch (Exception e){
-             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. No se pudo editar, revise los campos e intente nuevamente ");
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. No se pudo descontar de la cuenta ");
          }
      }
+     @PutMapping("/inhabilitar-cuenta/{id_cuenta}")
+     public ResponseEntity<?> inhabilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+         try{
+             return ResponseEntity.status(HttpStatus.OK).body("se deshabilito la cuenta : "+servicioCliente.inhabilitarCuenta(id_cuenta));
+         }catch (Exception e){
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. no se pudo inhabilitar la cuenta");
+         }
+     }
+    @PutMapping("/habilitar-cuenta/{id_cuenta}")
+    public ResponseEntity<?> habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body("se habilito la cuenta : "+servicioCliente.habilitarCuenta(id_cuenta));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. no se pudo habilitar la cuenta");
+        }
+    }
      @DeleteMapping("/eliminar-cuenta/idcuenta/{id_cuenta}")
      public ResponseEntity<?> deleteCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
          try {

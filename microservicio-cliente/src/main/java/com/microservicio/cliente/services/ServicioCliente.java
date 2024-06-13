@@ -137,5 +137,28 @@ public class ServicioCliente {
         Cuenta cuenta =repositoryCuenta.findById(id_cuenta).orElse(null);
         return cuenta;
     }
-
+    @Transactional
+    public boolean inhabilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta) {
+        Cuenta cuenta=repositoryCuenta.findById(id_cuenta).orElse(null);
+        if(cuenta.isHabilitado()==true){
+            cuenta.deshabilitar();
+            repositoryCuenta.saveAndFlush(cuenta);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    @Transactional
+    public boolean habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta) {
+        Cuenta cuenta=repositoryCuenta.findById(id_cuenta).orElse(null);
+        if(cuenta==null){
+            return false;
+        }
+        else{
+            cuenta.habilitar();
+            repositoryCuenta.saveAndFlush(cuenta);
+            return true;
+        }
+    }
 }
