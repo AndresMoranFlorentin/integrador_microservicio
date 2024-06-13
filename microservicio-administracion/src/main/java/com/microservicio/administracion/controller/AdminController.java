@@ -1,20 +1,36 @@
 package com.microservicio.administracion.controller;
 
+import com.microservicio.administracion.client.MonopatinClient;
 import com.microservicio.administracion.service.AdminService;
 import com.microservicio.administracion.service.dto.request.AdministradorRequestDTO;
 import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
+import com.microservicio.administracion.service.dto.response.MonopatinResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private MonopatinClient monopatinClient;
+
+    /* Como administrador quiero consultar los monopatines con más de X viajes en un cierto año.*/
+    @GetMapping("/monopatines/{year}/{minViajes}")
+    public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int year, @RequestParam int minViajes) {
+        List<MonopatinResponseDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(year, minViajes);
+        return ResponseEntity.ok(monopatines);
+    }
+
+    /*CRUD ADMIN*/
     @GetMapping("/{id_admin}")
     public ResponseEntity<?> getAdministrador(@PathVariable Long id_admin){
         try{
@@ -31,8 +47,8 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody AdministradorRequestDTO entity){
-        AdministradorResponseDTO result = this.adminService.save(entity);
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody AdministradorRequestDTO entity) throws Exception {
+        AdministradorResponseDTO result = this.adminService.update(id, entity);
         return ResponseEntity.accepted().body(result);
     }
 

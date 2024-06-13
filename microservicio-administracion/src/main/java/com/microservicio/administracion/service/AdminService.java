@@ -24,6 +24,7 @@ public class AdminService {
     public AdministradorResponseDTO save(AdministradorRequestDTO request) {
         Administrador admin = new Administrador();
         admin.setNombre(request.getNombre());
+        adminRepository.save(admin);
         return new AdministradorResponseDTO(admin.getNombre());
     }
 
