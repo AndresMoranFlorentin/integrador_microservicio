@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MonopatinResponseDTO {
-    private String ubicacion;
-    private int kmAcumulados;
-    private String estado;
-    private int viajes;
+public class ReporteMonopatinesDTO {
+    private int enMantenimiento;
+    private int operativos;
 }

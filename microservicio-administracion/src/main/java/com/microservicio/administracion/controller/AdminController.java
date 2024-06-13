@@ -1,10 +1,11 @@
 package com.microservicio.administracion.controller;
 
 import com.microservicio.administracion.client.MonopatinClient;
+import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import com.microservicio.administracion.service.AdminService;
-import com.microservicio.administracion.service.dto.request.AdministradorRequestDTO;
+import com.microservicio.administracion.http.request.AdministradorRequestDTO;
 import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
-import com.microservicio.administracion.service.dto.response.MonopatinResponseDTO;
+import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,24 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private MonopatinClient monopatinClient;
-
-    /* Como administrador quiero consultar los monopatines con más de X viajes en un cierto año.*/
+    /* 3c) Como administrador quiero consultar los monopatines con más de X
+        viajes en un cierto año.
+    */
     @GetMapping("/monopatines/{year}/{minViajes}")
     public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int year, @RequestParam int minViajes) {
-        List<MonopatinResponseDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(year, minViajes);
+        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(year, minViajes);
         return ResponseEntity.ok(monopatines);
     }
+
+    /* 3e) Como administrador quiero consultar la cantidad de monopatines actualmente
+        en operación, versus la cantidad de monopatines actualmente en mantenimiento
+    */
+    @GetMapping("/reporteMonopatines/")
+    public ResponseEntity<?> getReporteMonopatines(){
+        ReporteMonopatinesDTO monopatines = adminService.getReporteMonopatines();
+        return ResponseEntity.ok(monopatines);
+    }
+
 
     /*CRUD ADMIN*/
     @GetMapping("/{id_admin}")

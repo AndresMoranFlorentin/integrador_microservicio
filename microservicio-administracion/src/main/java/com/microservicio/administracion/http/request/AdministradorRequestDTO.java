@@ -1,4 +1,4 @@
-package com.microservicio.administracion.service.dto.request;
+package com.microservicio.administracion.http.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
