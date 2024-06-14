@@ -1,6 +1,6 @@
 package com.microservicio.cliente.controllers;
 
-import com.microservicio.cliente.dto.CuentaDto;
+import com.microservicio.cliente.dto.CuentaDTO;
 import com.microservicio.cliente.dto.UsuarioDto;
 import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
@@ -62,7 +62,7 @@ public class ControladorCliente {
      }
      @PostMapping("/agregar-cuenta")
      public ResponseEntity<?> agregarCuenta(@RequestBody Cuenta cuenta){
-         CuentaDto nuevo=servicioCliente.registrarCuenta(cuenta);
+         CuentaDTO nuevo=servicioCliente.registrarCuenta(cuenta);
          if(nuevo!=null){
              return ResponseEntity.status(HttpStatus.OK).body("Fue registrado con exito la cuenta: "+nuevo.getNombre()+", expira en: "+nuevo.getFecha_de_alta());
          }
@@ -84,20 +84,39 @@ public class ControladorCliente {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. No se pudo descontar de la cuenta ");
          }
      }
+     //Inhabilitar cuenta y devuelve un String de respuesta
      @PutMapping("/inhabilitar-cuenta/{id_cuenta}")
-     public ResponseEntity<?> inhabilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+     public ResponseEntity<?> inhabilitarCuenta0(@PathVariable("id_cuenta")Long id_cuenta){
          try{
              return ResponseEntity.status(HttpStatus.OK).body("se deshabilito la cuenta : "+servicioCliente.inhabilitarCuenta(id_cuenta));
          }catch (Exception e){
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. no se pudo inhabilitar la cuenta");
          }
      }
-    @PutMapping("/habilitar-cuenta/{id_cuenta}")
-    public ResponseEntity<?> habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+     //inhabilitar cuenta y devuelve como respuesta una cuentaDTO
+    @PutMapping("/inhabilitar-cuenta/{id_cuenta}")
+    public ResponseEntity<CuentaDTO> inhabilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body("se habilito la cuenta : "+servicioCliente.habilitarCuenta(id_cuenta));
+            return ResponseEntity.status(HttpStatus.OK).body(servicioCliente.inhabilitarCuenta(id_cuenta));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+     //habilitar cuenta y responde un string de respuesta
+    @PutMapping("/habilitar-cuenta/{id_cuenta}")
+    public ResponseEntity<?> habilitarCuenta0(@PathVariable("id_cuenta")Long id_cuenta){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body("se habilito la cuenta : "+servicioCliente.habilitarCuenta0(id_cuenta));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. no se pudo habilitar la cuenta");
+        }
+    }
+    @PutMapping("/habilitar-cuenta/{id_cuenta}")
+    public ResponseEntity<CuentaDTO> habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicioCliente.habilitarCuenta(id_cuenta));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
      @DeleteMapping("/eliminar-cuenta/idcuenta/{id_cuenta}")
