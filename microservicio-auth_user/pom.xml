@@ -7,11 +7,11 @@
 		<artifactId>app_microservicio</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.microservicio.usuario</groupId>
-	<artifactId>microservicio-usuario</artifactId>
+	<groupId>com.microservicio.auth_user</groupId>
+	<artifactId>microservicio-auth_user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservicio-usuario</name>
-	<description>Spring Boot Microservicio Usuario</description>
+	<name>microservicio-auth_user</name>
+	<description>Spring Boot Microservicio Auth User</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>

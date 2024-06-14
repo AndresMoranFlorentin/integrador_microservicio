@@ -29,6 +29,8 @@ public class ControladorCliente {
         Cuenta cuenta=servicioCliente.buscarCuenta(id_cuenta);
         return ResponseEntity.ok(cuenta);
     }
+    /*Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
+        un monopatín cerca de mi ubicación*/
     @GetMapping("/monopatines-mas-cercanos/ubicacion/{ubicacion}")
     public ResponseEntity<?> getMonopatinesMasCerca(@PathVariable("ubicacion")String ubicacion){
        List<Monopatin> monopatinesCer=servicioCliente.getMonopatinesCercanos(ubicacion);

@@ -12,6 +12,7 @@ import java.util.List;
 public interface ClientFeignAdministracion {
     @GetMapping("/pedir-viaje/{id_usuario}/{ubicacion}")
     public Viaje pedirViaje(@PathVariable("id_usuario")Long id_usuario, @PathVariable("ubicacion") String ubicacion);
+    //funcion para pedirle al administrador que devuelva los monopatines mas cercanos de la ubicacion dada
     @GetMapping("/monopatines-mas-cercanos/{ubicacion}")
     public List<Monopatin> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion);
 }
