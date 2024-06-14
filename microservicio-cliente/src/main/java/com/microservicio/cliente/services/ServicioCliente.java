@@ -36,7 +36,7 @@ public class ServicioCliente {
         return null;
     }
     @Transactional
-    public Viaje pedirViaje(Long id_usuario, String ubicacion) {
+    public Viaje pedirViaje(@PathVariable("id_usuario")Long id_usuario,@PathVariable("ubicacion")String ubicacion) {
         Viaje viaje=clientFeignAdministracion.pedirViaje(id_usuario,ubicacion);
         if(viaje==null){
             return null;
@@ -44,7 +44,7 @@ public class ServicioCliente {
         return viaje;
     }
     @Transactional
-    public List<Monopatin> getMonopatinesCercanos(String ubicacion) {
+    public List<Monopatin> getMonopatinesCercanos(@PathVariable("ubicacion") String ubicacion) {
         List<Monopatin> lista=clientFeignAdministracion.getMonopatinesMasCercanos(ubicacion);
         if(lista.isEmpty()){
             return null;
@@ -52,7 +52,7 @@ public class ServicioCliente {
         return lista;
     }
     @Transactional
-    public UsuarioDto registrarUsuario(Usuario usuario) {
+    public UsuarioDto registrarUsuario(@PathVariable("usuario")Usuario usuario) {
         Usuario existe= repositoryUsuario.findById(usuario.getId_usuario()).orElse(null);
         if(existe==null){//no existe ese usuario entonces...guardo este nuevo
             repositoryUsuario.save(usuario);

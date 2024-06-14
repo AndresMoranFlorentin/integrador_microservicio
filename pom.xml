@@ -22,7 +22,7 @@
         <module>microservicio-monopatin</module>
         <module>microservicio-administracion</module>
         <module>microservicio-mantenimiento</module>
-        <module>microservicio-usuario</module>
+        <module>microservicio-auth_user</module>
         <module>microservicio-cliente</module>
     </modules>
     <properties>

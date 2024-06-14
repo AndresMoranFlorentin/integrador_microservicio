@@ -9,13 +9,13 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-@FeignClient(name="microservicio-monopatin")
+@FeignClient(name="microservicio-monopatin", url = "http://localhost:9090/api/monopatin")
 public interface MonopatinFeignClient {
 
-    @PostMapping("bikes")
+    @PostMapping("monopatin")
     Monopatin save(@RequestBody Monopatin monopatin);
 
-    @GetMapping("bikes/byUser/{userId}")
-    List<Monopatin> getBikes(@PathVariable("id_monopatin") Long userId);
+    @GetMapping("monopatin/{id_monopatin}")
+    List<Monopatin> getMonopatin(@PathVariable("id_monopatin") Long userId);
 
 }
