@@ -2,7 +2,7 @@ package com.microservicio.cliente.controllers;
 
 import com.microservicio.cliente.dto.CuentaDto;
 import com.microservicio.cliente.dto.UsuarioDto;
-import com.microservicio.cliente.models.Monopatin;
+import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
 import com.microservicio.cliente.entities.Cuenta;
 import com.microservicio.cliente.entities.Usuario;
@@ -33,7 +33,7 @@ public class ControladorCliente {
         un monopatín cerca de mi ubicación*/
     @GetMapping("/monopatines-mas-cercanos/ubicacion/{ubicacion}")
     public ResponseEntity<?> getMonopatinesMasCerca(@PathVariable("ubicacion")String ubicacion){
-       List<Monopatin> monopatinesCer=servicioCliente.getMonopatinesCercanos(ubicacion);
+       List<MonopatinDTO> monopatinesCer=servicioCliente.getMonopatinesCercanos(ubicacion);
        if(monopatinesCer.isEmpty()){
            return ResponseEntity.ok("no se encontraron monopatines cercanos a su ubicacion");
        }
