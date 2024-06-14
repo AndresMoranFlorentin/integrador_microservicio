@@ -1,6 +1,7 @@
 package com.microservicio.administracion.controller;
 
 import com.microservicio.administracion.client.MonopatinClient;
+import com.microservicio.administracion.http.response.MonopatinDTO;
 import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import com.microservicio.administracion.service.AdminService;
 import com.microservicio.administracion.http.request.AdministradorRequestDTO;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
@@ -37,6 +38,12 @@ public class AdminController {
     public ResponseEntity<?> getReporteMonopatines(){
         ReporteMonopatinesDTO monopatines = adminService.getReporteMonopatines();
         return ResponseEntity.ok(monopatines);
+    }
+
+    @GetMapping("/monopatines-mas-cercanos/{ubicacion}")
+    public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion){
+        List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(ubicacion);
+        return monopatinesCercanos;
     }
 
 

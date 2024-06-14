@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "msvc-monopatin" , url = "localhost:9090/api/")/*Aca iria el endpoint de Monopatin*/
+@FeignClient(name = "msvc-monopatin" , url = "localhost:9090/api/monopatin")/*Aca iria el endpoint de Monopatin*/
 public interface MonopatinClient {
 
     @GetMapping("/monopatinesSarasa/{year}/{minViajes}")/*Reemplazar por el endpoint de Monopatin*/
@@ -17,4 +17,7 @@ public interface MonopatinClient {
 
     @GetMapping("/reporteMonopatines")/*Reemplazar por el endpoint de Monopatin*/
     ReporteMonopatinesDTO getReporteMonopatines();
+
+    @GetMapping("/monopatinesCercanos/{ubicacion}")/* Reemplazar por el endpoint de Monopatin*/
+    List<MonopatinDTO> getMonopatinesCercanos(@PathVariable String ubicacion);
 }

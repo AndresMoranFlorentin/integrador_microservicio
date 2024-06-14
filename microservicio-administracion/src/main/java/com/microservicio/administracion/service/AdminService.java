@@ -31,6 +31,12 @@ public class AdminService {
     }
 
     @Transactional
+    public List<MonopatinDTO> getMonopatinesCercanos(String ubicacion) {
+        List<MonopatinDTO> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(ubicacion);
+        return monopatinesCercanos;
+    }
+
+    @Transactional
     public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int año, int minViajes){
         List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(año, minViajes);
         return MonopatinconXViajesResponseDTO.builder()
