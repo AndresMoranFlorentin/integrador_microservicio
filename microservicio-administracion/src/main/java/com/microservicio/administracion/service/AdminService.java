@@ -1,7 +1,9 @@
 package com.microservicio.administracion.service;
 
+import com.microservicio.administracion.client.ClienteClient;
 import com.microservicio.administracion.client.MonopatinClient;
 import com.microservicio.administracion.entity.Administrador;
+import com.microservicio.administracion.http.response.CuentaDTO;
 import com.microservicio.administracion.http.response.MonopatinDTO;
 import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
 import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
@@ -24,11 +26,25 @@ public class AdminService {
     @Autowired
     private MonopatinClient monopatinClient;
 
+    @Autowired
+    private ClienteClient clienteClient;
+
+
+    @Transactional
+    public CuentaDTO desabilitarCuenta(Long id_cuenta) {
+        return clienteClient.desactivarCuenta(id_cuenta);
+    }
+    @Transactional
+    public CuentaDTO activarCuenta(Long id_cuenta) {
+        return clienteClient.activarCuenta(id_cuenta);
+    }
+
     @Transactional
     public ReporteMonopatinesDTO getReporteMonopatines(){
         ReporteMonopatinesDTO rmDTO = monopatinClient.getReporteMonopatines();
         return rmDTO;
     }
+
 
     @Transactional
     public List<MonopatinDTO> getMonopatinesCercanos(String ubicacion) {

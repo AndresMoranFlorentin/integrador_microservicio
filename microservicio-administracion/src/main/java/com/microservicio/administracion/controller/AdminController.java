@@ -1,6 +1,6 @@
 package com.microservicio.administracion.controller;
 
-import com.microservicio.administracion.client.MonopatinClient;
+import com.microservicio.administracion.http.response.CuentaDTO;
 import com.microservicio.administracion.http.response.MonopatinDTO;
 import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import com.microservicio.administracion.service.AdminService;
@@ -22,8 +22,25 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    /* 3c) Como administrador quiero consultar los monopatines con más de X
-        viajes en un cierto año.
+    /*
+    *   3b) Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
+    *   misma
+    */
+    @GetMapping("/desactivarCuenta/{id_cuenta}")
+    public ResponseEntity<?> desabilitarCuenta(@RequestParam @PathVariable Long id_cuenta) {
+        CuentaDTO cDTO = adminService.desabilitarCuenta(id_cuenta);
+        return ResponseEntity.ok(cDTO);
+    }
+
+    @GetMapping("/activarCuenta/{id_cuenta}")
+    public ResponseEntity<?> activarCuenta(@RequestParam @PathVariable Long id_cuenta) {
+        CuentaDTO cDTO = adminService.activarCuenta(id_cuenta);
+        return ResponseEntity.ok(cDTO);
+    }
+
+    /*
+    *    3c) Como administrador quiero consultar los monopatines con más de X
+    *    viajes en un cierto año.
     */
     @GetMapping("/monopatines/{year}/{minViajes}")
     public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int year, @RequestParam int minViajes) {
@@ -31,8 +48,9 @@ public class AdminController {
         return ResponseEntity.ok(monopatines);
     }
 
-    /* 3e) Como administrador quiero consultar la cantidad de monopatines actualmente
-        en operación, versus la cantidad de monopatines actualmente en mantenimiento
+    /*
+    *   3e) Como administrador quiero consultar la cantidad de monopatines actualmente
+    *    en operación, versus la cantidad de monopatines actualmente en mantenimiento
     */
     @GetMapping("/reporteMonopatines/")
     public ResponseEntity<?> getReporteMonopatines(){
@@ -40,12 +58,15 @@ public class AdminController {
         return ResponseEntity.ok(monopatines);
     }
 
+    /*
+    *  3g) Listado de los monopatines cercanos a mi zona, para poder encontrar
+    *    un monopatín cerca de mi ubicación
+    */
     @GetMapping("/monopatines-mas-cercanos/{ubicacion}")
     public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion){
         List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(ubicacion);
         return monopatinesCercanos;
     }
-
 
     /*CRUD ADMIN*/
     @GetMapping("/{id_admin}")

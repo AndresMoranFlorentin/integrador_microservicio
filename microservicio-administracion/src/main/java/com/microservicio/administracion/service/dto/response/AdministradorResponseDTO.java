@@ -1,9 +1,9 @@
 package com.microservicio.administracion.service.dto.response;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Getter
+@Data
 @RequiredArgsConstructor
 public class AdministradorResponseDTO {
     private String nombre;

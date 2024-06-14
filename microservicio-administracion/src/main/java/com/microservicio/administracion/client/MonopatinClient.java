@@ -1,7 +1,6 @@
 package com.microservicio.administracion.client;
 
 import com.microservicio.administracion.http.response.MonopatinDTO;
-import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
 import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
