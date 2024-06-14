@@ -6,7 +6,9 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Monopatin {
+public class MonopatinDTO {
+    @Column
+    private Long idMonopatin;
     @Column
     private String ubicacion;
     @Column
@@ -15,4 +17,8 @@ public class Monopatin {
     private String estado;
     @Column
     private double tarifa;
+    @Column
+    private double tarifaExtra;
+    @Column
+    private int cantViajes;
 }

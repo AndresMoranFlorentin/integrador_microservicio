@@ -1,6 +1,6 @@
 package com.microservicio.cliente.clients;
 
-import com.microservicio.cliente.models.Monopatin;
+import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,5 +14,5 @@ public interface ClientFeignAdministracion {
     public Viaje pedirViaje(@PathVariable("id_usuario")Long id_usuario, @PathVariable("ubicacion") String ubicacion);
     //funcion para pedirle al administrador que devuelva los monopatines mas cercanos de la ubicacion dada
     @GetMapping("/monopatines-mas-cercanos/{ubicacion}")
-    public List<Monopatin> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion);
+    public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion);
 }
