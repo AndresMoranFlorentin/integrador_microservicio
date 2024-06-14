@@ -88,6 +88,11 @@ public class MonopatinController {
         return monopatinService.getTarifa();
     }
 
+    @GetMapping("/getTarifa")
+    public int getTarifaExtra(){
+        return monopatinService.getTarifaExtra();
+    }
+
 
 
 

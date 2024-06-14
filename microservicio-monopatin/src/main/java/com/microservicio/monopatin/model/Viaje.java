@@ -29,7 +29,15 @@ public class Viaje {
     @Column
     private Long idUsuario;
     @Column
-    private Long costo;
+    private Double costo;
+    @Column
+    private Boolean conPausa = false;
+    @Column
+    private LocalDateTime inicioPausa;
+    @Column
+    private LocalDateTime finPausa;
+    @Column
+    private Double tiempoPausado;
 
     public Viaje(Long idMonopatin, Long idCuenta, Long idUsuario){
         this.idMonopatin = idMonopatin;
@@ -50,6 +58,26 @@ public class Viaje {
 
         Long tiempoHoras = horas + (minutos/60) + (segundos/3600);
 
-        this.costo = tiempoHoras * tarifa;
+        Double tiempoH = tiempoHoras.doubleValue();
+
+        this.costo = tiempoH * tarifa;
+    }
+
+    public void setInicioPausa(){
+        this.inicioPausa = LocalDateTime.now();
+        this.conPausa = true;
+    }
+
+    public void setFinPausa(){
+        this.finPausa = LocalDateTime.now();
+    }
+
+    public void setTiempoPausado(){
+        Duration tiempo = Duration.between(this.inicio, this.fin);
+        long horas = tiempo.toHours();
+        long minutos = tiempo.toMinutesPart();
+        long segundos = tiempo.toSecondsPart();
+        Long tiempoHoras = horas + (minutos/60) + (segundos/3600);
+        this.tiempoPausado = tiempoHoras.doubleValue();
     }
 }

@@ -31,4 +31,7 @@ public interface MonopatinRepository extends JpaRepository <Monopatin, Long>{
 
     @Query("SELECT m.tarifa FROM Monopatin m")
     int getTarifa();
+
+    @Query("SELECT m.tarifaExtra FROM Monopatin m")
+    int getTarifaExtra();
 }

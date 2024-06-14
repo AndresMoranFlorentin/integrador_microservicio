@@ -75,4 +75,9 @@ public class MonopatinService {
     public int getTarifa() {
         return monopatinRepository.getTarifa();
     }
+
+    @Transactional
+    public int getTarifaExtra() {
+        return monopatinRepository.getTarifaExtra();
+    }
 }
