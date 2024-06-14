@@ -62,8 +62,8 @@ public class MonopatinService {
     }
 
     @Transactional
-    public List<MonopatinDto> getReporteViajes( int cantViajes){
-        return monopatinRepository.getReporteViajes(cantViajes);
+    public List<MonopatinDto> getReporteViajes( int cantViajes, int year){
+        return monopatinRepository.getReporteViajes(cantViajes, year);
     }
 
     @Transactional
@@ -71,7 +71,8 @@ public class MonopatinService {
        return monopatinRepository.getDisponibles();
     }
 
-
-
-
+    @Transactional
+    public int getTarifa() {
+        return monopatinRepository.getTarifa();
+    }
 }

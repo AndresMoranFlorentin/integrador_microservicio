@@ -1,17 +1,15 @@
 package com.microservicio.monopatin.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 
 @Entity
-@Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "viaje")
 public class Viaje {
@@ -31,8 +29,27 @@ public class Viaje {
     @Column
     private Long idUsuario;
     @Column
-    private Double costo;
+    private Long costo;
 
+    public Viaje(Long idMonopatin, Long idCuenta, Long idUsuario){
+        this.idMonopatin = idMonopatin;
+        this.idCuenta = idCuenta;
+        this.idUsuario = idUsuario;
+        this.inicio = LocalDateTime.now();
+    }
 
+    public void setFin() {
+        this.fin = LocalDateTime.now();
+    }
 
+    public void setCosto(int tarifa){
+        Duration tiempo = Duration.between(this.inicio, this.fin);
+        long horas = tiempo.toHours();
+        long minutos = tiempo.toMinutesPart();
+        long segundos = tiempo.toSecondsPart();
+
+        Long tiempoHoras = horas + (minutos/60) + (segundos/3600);
+
+        this.costo = tiempoHoras * tarifa;
+    }
 }

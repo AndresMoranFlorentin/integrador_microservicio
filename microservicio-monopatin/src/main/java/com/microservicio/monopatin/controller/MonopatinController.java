@@ -65,9 +65,9 @@ public class MonopatinController {
         return ResponseEntity.ok(m);
     }
 
-    @GetMapping("/reporteViajes/{cantViajes}")
-    public ResponseEntity<List<MonopatinDto>> getReporteViajes(@PathVariable int cantViajes){
-        List<MonopatinDto> m = monopatinService.getReporteViajes(cantViajes);
+    @GetMapping("/reporteViajes/{cantViajes}{año}")
+    public ResponseEntity<List<MonopatinDto>> getReporteViajes(@PathVariable int cantViajes, int year){
+        List<MonopatinDto> m = monopatinService.getReporteViajes(cantViajes, year);
         if (m.isEmpty()) {
             return  ResponseEntity.noContent().build();
         }
@@ -82,6 +82,14 @@ public class MonopatinController {
         }
         return ResponseEntity.ok(m);
     }
+
+    @GetMapping("/getTarifa")
+    public int getTarifa(){
+        return monopatinService.getTarifa();
+    }
+
+
+
 
 
 

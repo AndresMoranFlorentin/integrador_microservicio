@@ -22,11 +22,13 @@ public interface MonopatinRepository extends JpaRepository <Monopatin, Long>{
     @Query("SELECT m FROM Monopatin m ORDER BY m.kmAcumulados")
     List<MonopatinDto> getReporteXkm();
 
-    @Query("SELECT m FROM Monopatin m WHERE m.viajes.size > :cantViajes")
-    List<MonopatinDto> getReporteViajes(int cantViajes);
+    @Query("SELECT m FROM Monopatin m JOIN m.viajes v WHERE YEAR(v.fin) = :year GROUP BY m " +
+            "HAVING COUNT(v) > :cantViajes ")
+    List<MonopatinDto> getReporteViajes(int cantViajes, int year);
 
     @Query("SELECT m FROM Monopatin m WHERE m.estado = 'Disponible' ")
     List<MonopatinDto> getDisponibles();
 
-
+    @Query("SELECT m.tarifa FROM Monopatin m")
+    int getTarifa();
 }
