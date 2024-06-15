@@ -62,10 +62,11 @@ public class ServicioCliente {
         return null;
     }
     @Transactional
-    public CuentaDTO registrarCuenta(@PathVariable("cuenta") Cuenta cuenta) {
+    public CuentaDTO registrarCuenta(@PathVariable("cuenta") CuentaDTO cuenta) {
         Cuenta cuentaN=repositoryCuenta.findById(cuenta.getId_cuenta()).orElse(null);
         if(cuentaN==null){
-            repositoryCuenta.save(cuenta);//guardo la cuenta
+            Cuenta c = new Cuenta(cuenta.getNombre_cuenta(),cuenta.getMonto(),cuenta.getFecha_de_alta());
+            repositoryCuenta.save(c);//guardo la cuenta
             CuentaDTO nuevo=new CuentaDTO(cuenta.getId_cuenta(),cuenta.getNombre_cuenta(),cuenta.getMonto(),cuenta.isHabilitado(),cuenta.getFecha_de_alta());
             return nuevo;
         }
@@ -138,18 +139,6 @@ public class ServicioCliente {
         return cuenta;
     }
     @Transactional
-    public boolean inhabilitarCuenta0(@PathVariable("id_cuenta")Long id_cuenta) {
-        Cuenta cuenta=repositoryCuenta.findById(id_cuenta).orElse(null);
-        if(cuenta.isHabilitado()==true){
-            cuenta.deshabilitar();
-            repositoryCuenta.saveAndFlush(cuenta);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    @Transactional
     public CuentaDTO inhabilitarCuenta(Long id_cuenta) {
         Cuenta cuenta=repositoryCuenta.findById(id_cuenta).orElse(null);
         if(cuenta.isHabilitado()==true){
@@ -160,18 +149,6 @@ public class ServicioCliente {
         }
         else{
             return null;
-        }
-    }
-    @Transactional
-    public boolean habilitarCuenta0(@PathVariable("id_cuenta")Long id_cuenta) {
-        Cuenta cuenta=repositoryCuenta.findById(id_cuenta).orElse(null);
-        if(cuenta==null){
-            return false;
-        }
-        else{
-            cuenta.habilitar();
-            repositoryCuenta.saveAndFlush(cuenta);
-            return true;
         }
     }
     @Transactional

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class CuentaDTO {
     @Column

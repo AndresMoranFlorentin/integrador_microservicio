@@ -1,6 +1,7 @@
 package com.microservicio.administracion.controller;
 
-import com.microservicio.administracion.http.response.CuentaDTO;
+import com.microservicio.administracion.http.request.CuentaDTO;
+import com.microservicio.administracion.http.response.CuentaResponseDTO;
 import com.microservicio.administracion.http.response.MonopatinDTO;
 import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import com.microservicio.administracion.service.AdminService;
@@ -28,14 +29,20 @@ public class AdminController {
     */
     @GetMapping("/desactivarCuenta/{id_cuenta}")
     public ResponseEntity<?> desabilitarCuenta(@RequestParam @PathVariable Long id_cuenta) {
-        CuentaDTO cDTO = adminService.desabilitarCuenta(id_cuenta);
+        CuentaResponseDTO cDTO = adminService.inhabilitarCuenta(id_cuenta);
         return ResponseEntity.ok(cDTO);
     }
 
     @GetMapping("/activarCuenta/{id_cuenta}")
-    public ResponseEntity<?> activarCuenta(@RequestParam @PathVariable Long id_cuenta) {
-        CuentaDTO cDTO = adminService.activarCuenta(id_cuenta);
-        return ResponseEntity.ok(cDTO);
+    public CuentaResponseDTO activarCuenta(@RequestParam @PathVariable Long id_cuenta) {
+        CuentaResponseDTO cDTO = adminService.habilitarCuenta(id_cuenta);
+        return cDTO;
+    }
+
+    @PostMapping("/agregar-cuenta")
+    public CuentaResponseDTO agregarCuenta(@RequestBody CuentaDTO cuenta) {
+        CuentaResponseDTO cDTO = adminService.agregarCuenta(cuenta);
+        return cDTO;
     }
 
     /*

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CuentaDTO {
+public class CuentaResponseDTO {
 
     private Long id_cuenta;
     private String nombre_cuenta;

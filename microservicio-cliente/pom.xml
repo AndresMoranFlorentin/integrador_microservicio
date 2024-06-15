@@ -62,6 +62,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.8</version> <!-- Verifica la última versión disponible -->
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
