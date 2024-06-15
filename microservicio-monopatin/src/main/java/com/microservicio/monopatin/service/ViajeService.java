@@ -3,6 +3,7 @@ package com.microservicio.monopatin.service;
 import com.microservicio.monopatin.client.AdministracionClient;
 import com.microservicio.monopatin.controller.MonopatinController;
 import com.microservicio.monopatin.dto.ViajeDto;
+import com.microservicio.monopatin.model.Tarifa;
 import com.microservicio.monopatin.model.Viaje;
 import com.microservicio.monopatin.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ViajeService {
     @Autowired
     private AdministracionClient adminClient;
     @Autowired
-    private MonopatinController monopatinController;
+   // private MonopatinController monopatinController;
 
 
     @Transactional
@@ -35,6 +36,7 @@ public class ViajeService {
     public void finViaje(Long idViaje){
         int tarifa = monopatinController.getTarifa();
         int tarifaExtra = monopatinController.getTarifaExtra();
+        Tarifa tarifa=viajeRepository
         Optional<Viaje> o = viajeRepository.findById(idViaje);
         Viaje v = o.get();
         v.setFin();
@@ -50,4 +52,8 @@ public class ViajeService {
     }
 
 
+    public void setearTarifas(Double tarifa) {
+       Optional<Viaje> viaje =viajeRepository.findById(1L);
+       viaje.get().setTarifa(tarifa);
+    }
 }

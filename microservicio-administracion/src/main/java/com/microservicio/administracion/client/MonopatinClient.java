@@ -5,6 +5,7 @@ import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface MonopatinClient {
 
     @GetMapping("/monopatinesCercanos/{ubicacion}")/* Reemplazar por el endpoint de Monopatin*/
     List<MonopatinDTO> getMonopatinesCercanos(@PathVariable String ubicacion);
+
+    @PutMapping("/nuevasTarifas/{tarifa}")
+    String setearTarifas(Double tarifa);
 }

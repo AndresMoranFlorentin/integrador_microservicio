@@ -3,7 +3,6 @@ package com.microservicio.administracion.client;
 import com.microservicio.administracion.http.request.CuentaDTO;
 import com.microservicio.administracion.http.response.CuentaResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "msvc-cliente" , url = "localhost:5080/api/cliente")

@@ -106,4 +106,9 @@ public class AdminService {
             return null;
         }
     }
+
+    public String setearTarifas(Double tarifa) {
+        String mensaje = monopatinClient.setearTarifas(tarifa);
+        return mensaje;
+    }
 }

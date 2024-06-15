@@ -25,10 +25,6 @@ public class Monopatin {
     private int kmAcumulados;
     @Column
     private String estado;
-    @Column
-    private double tarifa;
-    @Column
-    private double tarifaExtra;
     @OneToMany
     private List<Viaje> viajes;
 

@@ -15,6 +15,13 @@ public class ViajeController {
     @Autowired
     private ViajeService viajeService;
 
+    @PutMapping("/nuevasTarifas/{tarifa}")
+    public String setearTarifas(@PathVariable("tarifa") Double tarifa){
+        viajeService.setearTarifas(tarifa);
+
+      return null;
+    }
+
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ViajeDto> save(@RequestBody Viaje viaje){

@@ -38,19 +38,27 @@ public class Viaje {
     private LocalDateTime finPausa;
     @Column
     private Double tiempoPausado;
+    @OneToOne
+    private Tarifa tarifa;
+    @Column
+    private Double tarifa_extra;
+   /* @OneToOne
+    private Tarifa tarifa_extra;*/
 
-    public Viaje(Long idMonopatin, Long idCuenta, Long idUsuario){
+    public Viaje(Long idMonopatin, Long idCuenta, Long idUsuario,Tarifa tarifa){
         this.idMonopatin = idMonopatin;
         this.idCuenta = idCuenta;
         this.idUsuario = idUsuario;
         this.inicio = LocalDateTime.now();
+        this.tarifa=tarifa;
+        this.tarifa_extra=0.00;
     }
 
     public void setFin() {
         this.fin = LocalDateTime.now();
     }
 
-    public void setCosto(int tarifa){
+    public void setCosto(){
         Duration tiempo = Duration.between(this.inicio, this.fin);
         long horas = tiempo.toHours();
         long minutos = tiempo.toMinutesPart();
@@ -60,7 +68,7 @@ public class Viaje {
 
         Double tiempoH = tiempoHoras.doubleValue();
 
-        this.costo = tiempoH * tarifa;
+        this.costo = tiempoH * this.tarifa.getTarifa();
     }
 
     public void setInicioPausa(){
