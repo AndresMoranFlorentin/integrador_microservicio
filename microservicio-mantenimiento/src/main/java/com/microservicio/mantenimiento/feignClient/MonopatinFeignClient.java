@@ -1,21 +1,24 @@
 package com.microservicio.mantenimiento.feignClient;
 
 
-import com.microservicio.mantenimiento.entity.Mantenimiento;
-import com.microservicio.mantenimiento.model.Monopatin;
+import com.microservicio.mantenimiento.model.MonopatinDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-@FeignClient(name="microservicio-monopatin", url = "http://localhost:9090/api/monopatin")
+@FeignClient(name="msvc-monopatin", url = "http://localhost:9090/api/monopatin")
 public interface MonopatinFeignClient {
 
     @PostMapping("monopatin")
-    Monopatin save(@RequestBody Monopatin monopatin);
+    MonopatinDto save(@RequestBody MonopatinDto monopatin);
 
     @GetMapping("monopatin/{id_monopatin}")
-    List<Monopatin> getMonopatin(@PathVariable("id_monopatin") Long userId);
+    List<MonopatinDto> getMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
 
+    @PutMapping("monopatin/liberarMantenimiento/{id_monopatin}")
+    MonopatinDto setLiberarMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
+
+    @GetMapping("monopatin/reporte_monopatines_por_km")
+    List<MonopatinDto> getMonopatinesPorKm();
 }

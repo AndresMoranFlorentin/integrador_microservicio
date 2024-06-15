@@ -36,7 +36,7 @@ public class ViajeService {
     public void finViaje(Long idViaje){
         int tarifa = monopatinController.getTarifa();
         int tarifaExtra = monopatinController.getTarifaExtra();
-        Tarifa tarifa=viajeRepository
+        Tarifa tarifa=viajeRepository;
         Optional<Viaje> o = viajeRepository.findById(idViaje);
         Viaje v = o.get();
         v.setFin();
