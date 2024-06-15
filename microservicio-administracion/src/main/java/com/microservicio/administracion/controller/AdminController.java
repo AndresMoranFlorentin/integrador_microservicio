@@ -27,14 +27,14 @@ public class AdminController {
     *   3b) Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
     *   misma
     */
-    @GetMapping("/desactivarCuenta/{id_cuenta}")
-    public ResponseEntity<?> desabilitarCuenta(@RequestParam @PathVariable Long id_cuenta) {
+    @PutMapping("/desactivarCuenta/{id_cuenta}")
+    public ResponseEntity<?> desabilitarCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
         CuentaResponseDTO cDTO = adminService.inhabilitarCuenta(id_cuenta);
         return ResponseEntity.ok(cDTO);
     }
 
-    @GetMapping("/activarCuenta/{id_cuenta}")
-    public CuentaResponseDTO activarCuenta(@RequestParam @PathVariable Long id_cuenta) {
+    @PutMapping("/activarCuenta/{id_cuenta}")
+    public CuentaResponseDTO activarCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
         CuentaResponseDTO cDTO = adminService.habilitarCuenta(id_cuenta);
         return cDTO;
     }

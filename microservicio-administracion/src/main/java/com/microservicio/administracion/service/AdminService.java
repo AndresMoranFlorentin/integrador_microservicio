@@ -35,8 +35,10 @@ public class AdminService {
     public CuentaResponseDTO inhabilitarCuenta(Long id_cuenta) {
         return clienteClient.inhabilitarCuenta(id_cuenta);
     }
+
     @Transactional
     public CuentaResponseDTO habilitarCuenta(Long id_cuenta) {
+        CuentaResponseDTO cDTO = clienteClient.habilitarCuenta(id_cuenta);
         return clienteClient.habilitarCuenta(id_cuenta);
     }
 
