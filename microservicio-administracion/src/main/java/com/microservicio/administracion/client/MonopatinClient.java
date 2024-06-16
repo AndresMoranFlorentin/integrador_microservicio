@@ -12,13 +12,13 @@ import java.util.List;
 @FeignClient(name = "msvc-monopatin" , url = "localhost:9090/api/monopatin")/*Aca iria el endpoint de Monopatin*/
 public interface MonopatinClient {
 
-    @GetMapping("/monopatinesSarasa/{year}/{minViajes}")/*Reemplazar por el endpoint de Monopatin*/
-    List<MonopatinDTO> getMonopatinesConMasViajes(@PathVariable int year, @PathVariable int minViajes);
+    @GetMapping("/reporteViajes/{cantViajes}/{año}")
+    List<MonopatinDTO> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int año);
 
-    @GetMapping("/reporteMonopatines")/*Reemplazar por el endpoint de Monopatin*/
+    @GetMapping("/reporteMonopatines")
     ReporteMonopatinesDTO getReporteMonopatines();
 
-    @GetMapping("/monopatinesCercanos/{ubicacion}")/* Reemplazar por el endpoint de Monopatin*/
+    @GetMapping("/monopatinesCercanos/{ubicacion}")
     List<MonopatinDTO> getMonopatinesCercanos(@PathVariable String ubicacion);
 
     @PutMapping("/nuevasTarifas/{tarifa}")

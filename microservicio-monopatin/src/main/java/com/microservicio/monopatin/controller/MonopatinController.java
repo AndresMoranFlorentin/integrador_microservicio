@@ -65,7 +65,7 @@ public class MonopatinController {
         return ResponseEntity.ok(m);
     }
 
-    @GetMapping("/reporteViajes/{cantViajes}{año}")
+    @GetMapping("/reporteViajes/{cantViajes}/{año}")
     public ResponseEntity<List<MonopatinDto>> getReporteViajes(@PathVariable int cantViajes, int year){
         List<MonopatinDto> m = monopatinService.getReporteViajes(cantViajes, year);
         if (m.isEmpty()) {

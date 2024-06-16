@@ -56,9 +56,9 @@ public class AdminController {
     *    3c) Como administrador quiero consultar los monopatines con más de X
     *    viajes en un cierto año.
     */
-    @GetMapping("/monopatines/{year}/{minViajes}")
-    public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int year, @RequestParam int minViajes) {
-        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(year, minViajes);
+    @GetMapping("/monopatines/{minViajes}/{year}")
+    public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int minViajes, @RequestParam int year) {
+        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(minViajes, year);
         return ResponseEntity.ok(monopatines);
     }
 
@@ -80,42 +80,6 @@ public class AdminController {
     public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion){
         List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(ubicacion);
         return monopatinesCercanos;
-    }
-
-    /*CRUD ADMIN*/
-    @GetMapping("/{id_admin}")
-    public ResponseEntity<?> getAdministrador(@PathVariable Long id_admin){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdministrador(id_admin));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado.\"}");
-        }
-    }
-
-    @PostMapping("darDeAlta")
-    public ResponseEntity<?> save(@RequestBody @Valid AdministradorRequestDTO request){
-        AdministradorResponseDTO result = this.adminService.save(request);
-        return ResponseEntity.accepted().body(result);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody AdministradorRequestDTO entity) throws Exception {
-        AdministradorResponseDTO result = this.adminService.update(id, entity);
-        return ResponseEntity.accepted().body(result);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        try{
-            boolean result = adminService.delete(id);
-            if (result) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Estudiante no encontrado.\"}");
-            }
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
-        }
     }
 
 }
