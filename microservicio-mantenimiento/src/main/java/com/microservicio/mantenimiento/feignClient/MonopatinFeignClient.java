@@ -10,15 +10,15 @@ import java.util.List;
 @FeignClient(name="msvc-monopatin", url = "http://localhost:9090/api/monopatin")
 public interface MonopatinFeignClient {
 
-    @PostMapping("monopatin")
+    @PostMapping("/save")
     MonopatinDto save(@RequestBody MonopatinDto monopatin);
 
-    @GetMapping("monopatin/{id_monopatin}")
-    List<MonopatinDto> getMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
+    @GetMapping("/{id_monopatin}")
+    MonopatinDto getMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
 
-    @PutMapping("monopatin/liberarMantenimiento/{id_monopatin}")
-    MonopatinDto setLiberarMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
+    @PutMapping("/disponible/{id}")
+    MonopatinDto setDispo(@PathVariable("id") Long id);
 
-    @GetMapping("monopatin/reporte_monopatines_por_km")
+    @GetMapping("/reporteXkm")
     List<MonopatinDto> getMonopatinesPorKm();
 }

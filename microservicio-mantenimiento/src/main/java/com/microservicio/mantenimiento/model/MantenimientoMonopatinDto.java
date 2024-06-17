@@ -1,21 +1,22 @@
 package com.microservicio.mantenimiento.model;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MonopatinDto {
+public class MantenimientoMonopatinDto {
 
     private Long id;
-    private String ubicacion;
     private int kmAcumulados;
-    private double tarifa;
-    private double tarifaExtra;
+
+    public MantenimientoMonopatinDto(MonopatinDto mDto) {
+        this.id = mDto.getId();
+    }
 
 }
-
-

@@ -1,5 +1,6 @@
 package com.microservicio.mantenimiento.controller;
 
+import com.microservicio.mantenimiento.model.MantenimientoMonopatinDto;
 import com.microservicio.mantenimiento.model.MonopatinDto;
 import com.microservicio.mantenimiento.service.MantenimientoService;
 import org.apache.http.HttpStatus;
@@ -16,7 +17,7 @@ public class MantenimientoController {
     private MantenimientoService mantService;
 
     @PostMapping("/add_mant")
-    public ResponseEntity<?> save(@RequestBody MonopatinDto entity) {
+    public ResponseEntity<?> save(@RequestBody MantenimientoMonopatinDto entity) {
         try {
             return ResponseEntity.status(HttpStatus.SC_OK).body(mantService.save(entity));
         }catch (Exception e) {
@@ -24,10 +25,10 @@ public class MantenimientoController {
         }
     }
 
-    @PutMapping("/librar_monopatin")
-    public ResponseEntity<?> update(@RequestBody MonopatinDto entity) {
+    @PutMapping("/liberar_monopatin/{id_monopatin}")
+    public ResponseEntity<?> setDispo(@PathVariable Long id_monopatin) {
         try {
-            return ResponseEntity.status(HttpStatus.SC_OK).body((mantService.update(entity)));
+            return ResponseEntity.status(HttpStatus.SC_OK).body((mantService.setDispo(id_monopatin)));
         }catch (Exception e) {
             return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo liberar el monopatin.\"}");
         }
