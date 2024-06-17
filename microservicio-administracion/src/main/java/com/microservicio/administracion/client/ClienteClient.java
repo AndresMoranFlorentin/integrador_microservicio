@@ -2,6 +2,7 @@ package com.microservicio.administracion.client;
 
 import com.microservicio.administracion.http.request.CuentaDTO;
 import com.microservicio.administracion.http.response.CuentaResponseDTO;
+import com.microservicio.administracion.http.response.TicketDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,5 +17,8 @@ public interface ClienteClient {
 
     @PutMapping("/habilitar-cuenta/{id_cuenta}")
     public CuentaResponseDTO habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta);
+
+    @PutMapping("/descontarViaje/{ticket}")
+    public void descontarViaje(@PathVariable TicketDTO ticket);
 
 }

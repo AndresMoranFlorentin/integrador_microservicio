@@ -1,13 +1,11 @@
 package com.microservicio.administracion.controller;
 
 import com.microservicio.administracion.http.request.CuentaDTO;
-import com.microservicio.administracion.http.response.CuentaResponseDTO;
-import com.microservicio.administracion.http.response.MonopatinDTO;
-import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
+import com.microservicio.administracion.http.request.ViajeDTO;
+import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.service.AdminService;
 import com.microservicio.administracion.http.request.AdministradorRequestDTO;
 import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
-import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,4 +80,9 @@ public class AdminController {
         return monopatinesCercanos;
     }
 
+    @PostMapping("api/administracion/generarTicket/{viaje}")
+    public TicketDTO generarTicket(@PathVariable ViajeDTO viaje){
+        TicketDTO tDTO = adminService.agregarTicket(viaje);
+        return tDTO;
+    }
 }

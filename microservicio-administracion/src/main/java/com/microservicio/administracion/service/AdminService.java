@@ -2,11 +2,10 @@ package com.microservicio.administracion.service;
 
 import com.microservicio.administracion.client.ClienteClient;
 import com.microservicio.administracion.client.MonopatinClient;
+import com.microservicio.administracion.entity.Ticket;
 import com.microservicio.administracion.http.request.CuentaDTO;
-import com.microservicio.administracion.http.response.CuentaResponseDTO;
-import com.microservicio.administracion.http.response.MonopatinDTO;
-import com.microservicio.administracion.http.response.MonopatinconXViajesResponseDTO;
-import com.microservicio.administracion.http.response.ReporteMonopatinesDTO;
+import com.microservicio.administracion.http.request.ViajeDTO;
+import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.repository.AdminRepository;
 import com.microservicio.administracion.http.request.AdministradorRequestDTO;
 import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
@@ -74,5 +73,13 @@ public class AdminService {
     public String setearTarifas(Double tarifa) {
         String mensaje = monopatinClient.setearTarifas(tarifa);
         return mensaje;
+    }
+
+    public TicketDTO agregarTicket(ViajeDTO viaje) {
+        Ticket ticket = new Ticket(viaje);
+        adminRepository.save(ticket);
+        TicketDTO tDTO = new TicketDTO(ticket);
+        clienteClient.descontarViaje(tDTO);
+        return tDTO;
     }
 }
