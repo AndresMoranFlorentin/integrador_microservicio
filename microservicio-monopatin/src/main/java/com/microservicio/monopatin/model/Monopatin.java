@@ -20,14 +20,27 @@ public class Monopatin {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long idMonopatin;
     @Column
-    private String ubicacion;
+    private String modelo;
     @Column
     private int kmAcumulados;
     @Column
     private String estado;
+    @Column
+    private double latitud;
+    @Column
+    private double longitud;
     @OneToMany
     private List<Viaje> viajes;
 
-
+    public double calcularDistancia(double lat, double lon) {
+        final int R = 6371; // Radio de la Tierra en km
+        double latDistance = Math.toRadians(lat - this.latitud);
+        double lonDistance = Math.toRadians(lon - this.longitud);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(this.latitud)) * Math.cos(Math.toRadians(lat))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // distancia en kilómetros
+    }
 
 }

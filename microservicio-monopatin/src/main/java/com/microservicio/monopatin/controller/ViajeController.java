@@ -9,27 +9,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/viaje")
+@RequestMapping("/api/viaje")
 public class ViajeController {
 
     @Autowired
     private ViajeService viajeService;
 
-    @PutMapping("/nuevasTarifas/{tarifa}")
-    public String setearTarifas(@PathVariable("tarifa") Double tarifa){
-        viajeService.setearTarifas(tarifa);
-
-      return null;
-    }
-
-    @PostMapping("")
+    @PostMapping("/generar-viaje")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ViajeDto> save(@RequestBody Viaje viaje){
         ViajeDto vNew = viajeService.save(viaje);
         return ResponseEntity.ok(vNew);
     }
 
-    @PutMapping("/fin/{idViaje}")
+    @PutMapping("/finalizar-viaje/{idViaje}")
     @ResponseStatus(HttpStatus.OK)
     public void finViaje(@PathVariable Long idViaje){
         viajeService.finViaje(idViaje);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -12,12 +13,12 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Table(name = "viaje")
-public class Viaje {
+public class Viaje implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name="idViaje")
     private Long idViaje;
-
     @Column
     private LocalDateTime inicio;
     @Column
@@ -38,12 +39,10 @@ public class Viaje {
     private LocalDateTime finPausa;
     @Column
     private Double tiempoPausado;
-    @OneToOne
+    @ManyToOne
     private Tarifa tarifa;
     @Column
-    private Double tarifa_extra;
-   /* @OneToOne
-    private Tarifa tarifa_extra;*/
+    private Double tarifaExtra;
 
     public Viaje(Long idMonopatin, Long idCuenta, Long idUsuario,Tarifa tarifa){
         this.idMonopatin = idMonopatin;
@@ -51,7 +50,7 @@ public class Viaje {
         this.idUsuario = idUsuario;
         this.inicio = LocalDateTime.now();
         this.tarifa=tarifa;
-        this.tarifa_extra=0.00;
+        this.tarifaExtra=0.10;
     }
 
     public void setFin() {
@@ -68,7 +67,7 @@ public class Viaje {
 
         Double tiempoH = tiempoHoras.doubleValue();
 
-        this.costo = tiempoH * this.tarifa.getTarifa();
+        this.costo = tiempoH * this.tarifa.getPrecio();
     }
 
     public void setInicioPausa(){
@@ -88,4 +87,5 @@ public class Viaje {
         Long tiempoHoras = horas + (minutos/60) + (segundos/3600);
         this.tiempoPausado = tiempoHoras.doubleValue();
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ public class MonopatinService {
 
     @Autowired
     private MonopatinRepository monopatinRepository;
+    private Double distancia_cercana = 1000.0;
 
     @Transactional
     public MonopatinDto save(Monopatin monopatin) {
@@ -39,21 +41,11 @@ public class MonopatinService {
     }
 
     @Transactional
-    public void setDispo(Long id){
+    public void setDispo(Long id) {
         Optional<Monopatin> o = monopatinRepository.findById(id);
         Monopatin m = o.get();
         m.setEstado("Disponible");
         monopatinRepository.save(m);
-    }
-
-    @Transactional
-    public void setTarifa(Double tarifa){
-        monopatinRepository.setTarifa(tarifa);
-    }
-
-    @Transactional
-    public void setTarifaExtra(Double tarifa){
-        monopatinRepository.setTarifaExtra(tarifa);
     }
 
     @Transactional
@@ -62,22 +54,33 @@ public class MonopatinService {
     }
 
     @Transactional
-    public List<MonopatinDto> getReporteViajes( int cantViajes, int year){
+    public List<MonopatinDto> getReporteViajes(int cantViajes, int year) {
         return monopatinRepository.getReporteViajes(cantViajes, year);
     }
 
     @Transactional
-    public List<MonopatinDto> getDisponibles(){
-       return monopatinRepository.getDisponibles();
+    public Integer getDisponibles() {
+        return monopatinRepository.getDisponibles();
     }
 
     @Transactional
-    public int getTarifa() {
-        return monopatinRepository.getTarifa();
+    public Integer getNoDisponibles() {
+        return monopatinRepository.getNoDisponibles();
     }
 
     @Transactional
-    public int getTarifaExtra() {
-        return monopatinRepository.getTarifaExtra();
+    public List<MonopatinDto> encontrarMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud) {
+        Double distanciaEnKm = this.distancia_cercana / 1000.0;
+        List<Monopatin> todosLosMonopatines = monopatinRepository.findAll();
+        List<MonopatinDto> lista = new ArrayList<>();
+        for (Monopatin m : todosLosMonopatines) {
+            if (m.calcularDistancia(latitud, longitud) <= distanciaEnKm) {
+                MonopatinDto nuevo = new MonopatinDto(m);
+                lista.add(nuevo);
+            }
+        }
+        return lista;
     }
+
 }
+

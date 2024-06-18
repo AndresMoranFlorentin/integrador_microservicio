@@ -5,6 +5,7 @@ import com.microservicio.monopatin.controller.MonopatinController;
 import com.microservicio.monopatin.dto.ViajeDto;
 import com.microservicio.monopatin.model.Tarifa;
 import com.microservicio.monopatin.model.Viaje;
+import com.microservicio.monopatin.repository.TarifaRepository;
 import com.microservicio.monopatin.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,6 @@ public class ViajeService {
     private ViajeRepository viajeRepository;
     @Autowired
     private AdministracionClient adminClient;
-    @Autowired
-   // private MonopatinController monopatinController;
 
 
     @Transactional
@@ -33,27 +32,24 @@ public class ViajeService {
     }
 
     @Transactional
-    public void finViaje(Long idViaje){
-        int tarifa = monopatinController.getTarifa();
-        int tarifaExtra = monopatinController.getTarifaExtra();
-        Tarifa tarifa=viajeRepository;
+    public void finViaje(Long idViaje) {
+        Tarifa tarifa = viajeRepository.findById(idViaje).get().getTarifa();
         Optional<Viaje> o = viajeRepository.findById(idViaje);
         Viaje v = o.get();
+        Double tarifaPrecio = tarifa.getPrecio();
+        Double tarifaExtra = (tarifaPrecio * (v.getTarifaExtra() + 1));
         v.setFin();
-        if (v.getConPausa() && (v.getTiempoPausado()> LIMITEPAUSA)){
+        if (v.getConPausa() && (v.getTiempoPausado() > LIMITEPAUSA)) {
             v.setCosto(tarifaExtra);
             viajeRepository.save(v);
-            adminClient.generarTicket(v);
-        }else {
-            v.setCosto(tarifa);
+            ViajeDto viajeDto = new ViajeDto(v);
+            adminClient.generarTicket(viajeDto);
+        } else {
+            v.setCosto(tarifaPrecio);
             viajeRepository.save(v);
-            adminClient.generarTicket(v);
+            ViajeDto viajeDto = new ViajeDto(v);
+            adminClient.generarTicket(viajeDto);
         }
     }
 
-
-    public void setearTarifas(Double tarifa) {
-       Optional<Viaje> viaje =viajeRepository.findById(1L);
-       viaje.get().setTarifa(tarifa);
-    }
 }

@@ -1,6 +1,7 @@
 package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
+import com.microservicio.monopatin.dto.ReporteMonopatinesDto;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.service.MonopatinService;
 import jakarta.persistence.PostUpdate;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/monopatin")
+@RequestMapping("/api/monopatin")
 public class MonopatinController {
 
     @Autowired
     private MonopatinService monopatinService;
 
 
-    @PostMapping("")
+    @PostMapping("/generar-monopatin")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MonopatinDto> save(@RequestBody Monopatin monopatin){
         MonopatinDto mNew = monopatinService.save(monopatin);
@@ -44,18 +45,6 @@ public class MonopatinController {
         monopatinService.setDispo(id);
     }
 
-    @PutMapping("/tarifa/{tarifa}")
-    @ResponseStatus(HttpStatus.OK)
-    public void setTarifa(@PathVariable Double tarifa){
-        monopatinService.setTarifa(tarifa);
-    }
-
-    @PutMapping("/tarifaExtra/{tarifa}")
-    @ResponseStatus(HttpStatus.OK)
-    public void setTarifaExtra(@PathVariable Double tarifa){
-        monopatinService.setTarifaExtra(tarifa);
-    }
-
     @GetMapping("/reporteXkm")
     public ResponseEntity<List<MonopatinDto>> getReporteXkm() {
         List<MonopatinDto> m = monopatinService.getReporteXkm();
@@ -74,26 +63,24 @@ public class MonopatinController {
         return ResponseEntity.ok(m);
     }
 
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<MonopatinDto>> getDisponibles(){
-        List<MonopatinDto> m = monopatinService.getDisponibles();
-        if (m.isEmpty()) {
-            return  ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(m);
+    //devuelve una lista de todos los monopatines que esten disponibles
+    // junto a los que no están disponibles
+    @GetMapping("/disponiblesVsIndisponibles")
+    public ResponseEntity<ReporteMonopatinesDto> getDisponibles() {
+        Integer monopatinesDisponibles = monopatinService.getDisponibles();
+        Integer monopatinesIndisponibles = monopatinService.getNoDisponibles();
+        ReporteMonopatinesDto reporte = new ReporteMonopatinesDto();
+        reporte.setOperativos(monopatinesDisponibles);
+        reporte.setEnMantenimiento(monopatinesIndisponibles);
+
+        return ResponseEntity.ok(reporte);
     }
 
-    @GetMapping("/getTarifa")
-    public int getTarifa(){
-        return monopatinService.getTarifa();
+    //devuelve una lista de monopatines cercanos a una zona dada del usuario(esto lo usaria usuario)
+    @GetMapping("/monopatines-cercanos/latitud/{latitud}/longitud/{longitud}")
+    public List<MonopatinDto> obtenerMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud) {
+        return monopatinService.encontrarMonopatinesCercanos(latitud, longitud);
     }
-
-    @GetMapping("/getTarifa")
-    public int getTarifaExtra(){
-        return monopatinService.getTarifaExtra();
-    }
-
-
 
 
 
