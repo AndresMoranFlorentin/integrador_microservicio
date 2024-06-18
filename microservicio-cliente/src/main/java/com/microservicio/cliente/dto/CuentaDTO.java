@@ -17,13 +17,13 @@ public class CuentaDTO {
     @Column
     private String nombre_cuenta;
     @Column
-    private Float monto;
+    private Double monto;
     @Column
     private boolean habilitado;
     @Column
     private LocalDateTime fecha_de_alta;
 
-    public CuentaDTO(Long id,String nombreCuenta, Float monto,boolean habilitado,LocalDateTime fechaDeAlta) {
+    public CuentaDTO(Long id,String nombreCuenta, Double monto,boolean habilitado,LocalDateTime fechaDeAlta) {
         this.id_cuenta=id;
         this.nombre_cuenta=nombreCuenta;
         this.monto=monto;

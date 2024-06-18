@@ -1,6 +1,7 @@
 package com.microservicio.cliente.controllers;
 
 import com.microservicio.cliente.dto.CuentaDTO;
+import com.microservicio.cliente.dto.TicketDTO;
 import com.microservicio.cliente.dto.UsuarioDto;
 import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
@@ -77,7 +78,7 @@ public class ControladorCliente {
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error. Por favor intente más tarde. no pudo asignarse la cuenta dada al usuario");
      }
      @PutMapping("/descontar-monto/idcuenta/{id_cuenta}/cobro/{cobro}")
-     public ResponseEntity<?> descontarDeLaCuenta(@PathVariable("id_cuenta")Long id_cuenta, @PathVariable("cobro") Float cobro){
+     public ResponseEntity<?> descontarDeLaCuenta(@PathVariable("id_cuenta")Long id_cuenta, @PathVariable("cobro") Double cobro){
          try{
              return ResponseEntity.status(HttpStatus.OK).body(servicioCliente.descontarDeLaCuenta(id_cuenta,cobro));
          }catch (Exception e){
@@ -100,6 +101,12 @@ public class ControladorCliente {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
+    @PutMapping("/descontarViaje/{ticket}")
+    public void descontarViaje(@PathVariable TicketDTO ticket) throws Exception {
+        Double monto=ticket.getMonto();
+        Long id_cuenta=ticket.getIdCuenta();
+        servicioCliente.descontarDeLaCuenta(id_cuenta,monto);
     }
      @DeleteMapping("/eliminar-cuenta/idcuenta/{id_cuenta}")
      public ResponseEntity<?> deleteCuenta(@PathVariable("id_cuenta") Long id_cuenta) {

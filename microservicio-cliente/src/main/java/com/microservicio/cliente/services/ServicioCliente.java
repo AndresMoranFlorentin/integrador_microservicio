@@ -115,7 +115,7 @@ public class ServicioCliente {
     }
     @Transactional
     public boolean descontarDeLaCuenta(@PathVariable("id_cuenta")Long id_cuenta,
-                                       @PathVariable("cobro") Float cobro) throws Exception {
+                                       @PathVariable("cobro") Double cobro) throws Exception {
         Cuenta nuevo=repositoryCuenta.findById(id_cuenta).orElse(null);
         try {
             if (nuevo!=null) {

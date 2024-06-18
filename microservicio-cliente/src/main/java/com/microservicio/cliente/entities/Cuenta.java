@@ -22,7 +22,7 @@ public class Cuenta {
     @Column
     private String nombre_cuenta;
     @Column
-    private Float monto;
+    private Double monto;
     @Column
     private boolean habilitado=true;
     @Column
@@ -31,7 +31,7 @@ public class Cuenta {
     @JsonIgnore
     private List<Usuario> usuarios;
 
-    public Cuenta(String nombre,Float monto,LocalDateTime fecha_de_alta) {
+    public Cuenta(String nombre,Double monto,LocalDateTime fecha_de_alta) {
         this.nombre_cuenta=nombre;
         this.monto=monto;
         this.fecha_de_alta=fecha_de_alta;
@@ -42,8 +42,8 @@ public class Cuenta {
         usuarios.add(usuario);
     }
 
-    public void descontarMonto(Float cobro) {
-        Float resto=(this.monto-cobro);
+    public void descontarMonto(Double cobro) {
+        Double resto=(this.monto-cobro);
         if(resto>=0.00){
             this.monto=resto;
         }
