@@ -20,8 +20,8 @@ public interface MonopatinClient {
     @GetMapping("/disponiblesVsIndisdisponibles")
     ReporteMonopatinesDTO getDisponibles();
 
-    @GetMapping("/monopatinesCercanos/{ubicacion}")
-    List<MonopatinDTO> getMonopatinesCercanos(@PathVariable String ubicacion);
+    @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
+    List<MonopatinDTO> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud);
 
     @PutMapping("/nuevasTarifas/{tarifa}")
     String setearTarifas(Double tarifa);

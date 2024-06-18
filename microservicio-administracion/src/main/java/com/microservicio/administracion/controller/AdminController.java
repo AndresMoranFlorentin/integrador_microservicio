@@ -4,15 +4,9 @@ import com.microservicio.administracion.http.request.CuentaDTO;
 import com.microservicio.administracion.http.request.ViajeDTO;
 import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.service.AdminService;
-import com.microservicio.administracion.http.request.AdministradorRequestDTO;
-import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +16,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
 
     @PutMapping("/mantenerMonopatin/{id_monopatin}")
     public void mantenerMonopatin(@PathVariable("id_monopatin") Long id_monopatin) {
@@ -93,9 +86,9 @@ public class AdminController {
     *  3g) Listado de los monopatines cercanos a mi zona, para poder encontrar
     *    un monopatín cerca de mi ubicación
     */
-    @GetMapping("/monopatines-mas-cercanos/{ubicacion}")
-    public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("ubicacion") String ubicacion){
-        List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(ubicacion);
+    @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
+    public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
+        List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(latitud, longitud);
         return monopatinesCercanos;
     }
 

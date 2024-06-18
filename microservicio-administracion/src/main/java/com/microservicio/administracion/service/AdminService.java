@@ -56,8 +56,8 @@ public class AdminService {
 
 
     @Transactional
-    public List<MonopatinDTO> getMonopatinesCercanos(String ubicacion) {
-        List<MonopatinDTO> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(ubicacion);
+    public List<MonopatinDTO> getMonopatinesCercanos(Double latitud, Double longitud) {
+        List<MonopatinDTO> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(latitud, longitud);
         return monopatinesCercanos;
     }
 
