@@ -32,7 +32,7 @@ public class CargarCsv {
                 Cuenta cuenta = new Cuenta();
                 cuenta.setId_cuenta(Long.valueOf(csvRecord.get("id_cuenta")));
                 cuenta.setNombre_cuenta(csvRecord.get("nombre"));
-                cuenta.setMonto(Float.parseFloat(csvRecord.get("monto")));
+                cuenta.setMonto(Double.parseDouble(csvRecord.get("monto")));
                 cuenta.setHabilitado(true);
                 cuenta.setFecha_de_alta(LocalDateTime.parse(csvRecord.get("fecha")));
                 repoCuenta.save(cuenta); // Guarda la carrera en la base de datos

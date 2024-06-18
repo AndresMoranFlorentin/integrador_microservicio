@@ -7,22 +7,39 @@ spring:
   application:
     name: msvc-gateway
   cloud:
-    compatibility-verifier:
-      enabled: false
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
-        - id: students
-          uri: 'http://localhost:8070'
-          predicates:
-            - Path=/api/student/**
-        - id: courses
+        - id: monopatin
           uri: 'http://localhost:9090'
           predicates:
-            - Path=/api/course/**
-
+            - Path=/api/monopatin/**
+        - id: viaje
+          uri: 'http://localhost:9090'
+          predicates:
+            - Path=/api/viaje/**
+        - id: tarifa
+          uri: 'http://localhost:9090'
+          predicates:
+            - Path=/api/tarifa/**
+        - id: administracion
+          uri: 'http://localhost:8070'
+          predicates:
+            - Path=/api/admin/**
+        - id: mantenimiento
+          uri: 'http://localhost:9080'
+          predicates:
+            - Path=/api/mantenimiento/**
+        - id: cliente
+          uri: 'http://localhost:5080'
+          predicates:
+            - Path=/api/cliente/**
+        - id: auth_user
+          uri: 'http://localhost:8070'
+          predicates:
+            - Path=/api/auth/**
 eureka:
   client:
     register-with-eureka: false
