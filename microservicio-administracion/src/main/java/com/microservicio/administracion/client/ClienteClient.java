@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 public interface ClienteClient {
 
     @PutMapping("/inhabilitar-cuenta/{id_cuenta}")
-    public CuentaResponseDTO inhabilitarCuenta(@PathVariable Long id_cuenta);
+    CuentaResponseDTO inhabilitarCuenta(@PathVariable Long id_cuenta);
 
     @PostMapping("/agregar-cuenta")
-    public CuentaResponseDTO agregarCuenta(@RequestBody CuentaDTO cuenta);
+    CuentaResponseDTO agregarCuenta(@RequestBody CuentaDTO cuenta);
 
     @PutMapping("/habilitar-cuenta/{id_cuenta}")
-    public CuentaResponseDTO habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta);
+    CuentaResponseDTO habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta);
 
     @PutMapping("/descontarViaje/{ticket}")
-    public void descontarViaje(@PathVariable TicketDTO ticket);
+    void descontarViaje(@PathVariable TicketDTO ticket);
 
 }

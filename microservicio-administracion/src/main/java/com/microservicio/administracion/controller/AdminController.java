@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,12 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+
+    @PutMapping("/mantenerMonopatin/{id_monopatin}")
+    public void mantenerMonopatin(@PathVariable("id_monopatin") Long id_monopatin) {
+        adminService.mantenerMonopatin(id_monopatin);
+    }
 
     /*
     *   3b) Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
@@ -55,10 +63,21 @@ public class AdminController {
     *    viajes en un cierto año.
     */
     @GetMapping("/monopatines/{minViajes}/{year}")
-    public ResponseEntity<?> getMonopatinesConMasViajes(@RequestParam int minViajes, @RequestParam int year) {
+    public ResponseEntity<?> getMonopatinesConMasViajes(@PathVariable int minViajes, @PathVariable int year) {
         MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(minViajes, year);
         return ResponseEntity.ok(monopatines);
     }
+
+    /*
+     *   3d) Como administrador quiero consultar el total facturado
+     *       en un rango de meses de cierto año
+     */
+    @GetMapping("/totalFacturado/{mes1}/{mes2}")
+    public ResponseEntity<?> getTotalFacturado(@PathVariable LocalDateTime mes1, @PathVariable LocalDateTime  mes2){
+        ReporteTotalFacturado rTF = adminService.getTotalFacturado(mes1, mes2);
+        return ResponseEntity.ok(rTF);
+    }
+
 
     /*
     *   3e) Como administrador quiero consultar la cantidad de monopatines actualmente

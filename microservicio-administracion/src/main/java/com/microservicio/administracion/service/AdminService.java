@@ -14,6 +14,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,6 +31,12 @@ public class AdminService {
     private ClienteClient clienteClient;
 
 
+
+    @Transactional
+    public void mantenerMonopatin(Long id_monopatin) {
+        monopatinClient.mantener(id_monopatin);
+    }
+
     @Transactional
     public CuentaResponseDTO inhabilitarCuenta(Long id_cuenta) {
         return clienteClient.inhabilitarCuenta(id_cuenta);
@@ -42,7 +50,7 @@ public class AdminService {
 
     @Transactional
     public ReporteMonopatinesDTO getReporteMonopatines(){
-        ReporteMonopatinesDTO rmDTO = monopatinClient.getReporteMonopatines();
+        ReporteMonopatinesDTO rmDTO = monopatinClient.getDisponibles();
         return rmDTO;
     }
 
@@ -54,13 +62,14 @@ public class AdminService {
     }
 
     @Transactional
-    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int anio, int minViajes){
-        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(anio, minViajes);
+    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int minViajes, int anio ){
+        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(minViajes, anio);
         return MonopatinconXViajesResponseDTO.builder()
                 .monopatines(monopatines)
                 .build();
     }
 
+    @Transactional
     public CuentaResponseDTO agregarCuenta(CuentaDTO cuenta) {
         CuentaResponseDTO cuentaDTO = clienteClient.agregarCuenta(cuenta);
         if(cuentaDTO != null){
@@ -70,16 +79,28 @@ public class AdminService {
         }
     }
 
+    @Transactional
     public String setearTarifas(Double tarifa) {
         String mensaje = monopatinClient.setearTarifas(tarifa);
         return mensaje;
     }
 
+    @Transactional
     public TicketDTO agregarTicket(ViajeDTO viaje) {
         Ticket ticket = new Ticket(viaje);
         adminRepository.save(ticket);
         TicketDTO tDTO = new TicketDTO(ticket);
         clienteClient.descontarViaje(tDTO);
         return tDTO;
+    }
+
+    @Transactional
+    public ReporteTotalFacturado getTotalFacturado(LocalDateTime mes1, LocalDateTime  mes2) {
+        ReporteTotalFacturado rtDTO = new ReporteTotalFacturado();
+        rtDTO.setMesInicio(mes1);
+        rtDTO.setMesFin(mes2);
+        Double totalFacturado = adminRepository.getTotalFacturado(mes1, mes2);
+        rtDTO.setTotalFacturado(totalFacturado);
+        return rtDTO;
     }
 }
