@@ -33,6 +33,12 @@ public class MonopatinService {
     }
 
     @Transactional
+    public MonopatinDto getMonopatin(Long id) {
+        MonopatinDto mDto = new MonopatinDto(monopatinRepository.getById(id));
+        return mDto;
+    }
+
+    @Transactional
     public void mantener(Long id) {
         Optional<Monopatin> o = monopatinRepository.findById(id);
         Monopatin m = o.get();

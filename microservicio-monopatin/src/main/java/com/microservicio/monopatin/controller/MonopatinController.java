@@ -39,6 +39,11 @@ public class MonopatinController {
         monopatinService.mantener(id);
     }
 
+    @GetMapping("/monopatin/{id}")
+    public MonopatinDto getMonopatin(@PathVariable Long id) {
+        return monopatinService.getMonopatin(id);
+    }
+
     @PutMapping("/disponible/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void setDispo(@PathVariable Long id){
