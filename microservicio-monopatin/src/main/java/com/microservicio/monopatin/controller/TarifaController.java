@@ -14,8 +14,8 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
-    @PostMapping("/actualizar-tarifa")
-    public Tarifa actualizarTarifa(@RequestBody Tarifa tarifa) {
+    @PutMapping("/actualizar-tarifa/{tarifa}")
+    public String actualizarTarifa(@PathVariable Double tarifa) {
         return tarifaService.actualizarTarifa(tarifa);
     }
 

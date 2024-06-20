@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
-@FeignClient(name = "msvc-monopatin" , url = "localhost:9090/api/monopatin")/*Aca iria el endpoint de Monopatin*/
+@FeignClient(name = "msvc-monopatin" , url = "localhost:9090/api/")/*Aca iria el endpoint de Monopatin*/
 public interface MonopatinClient {
 
 
 
-    @GetMapping("/reporteDeViajePorAnioX/{cantViajes}/{anio}")
+    @GetMapping("monopatin/reporteDeViajePorAnioX/{cantViajes}/{anio}")
     List<MonopatinDTO> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int anio);
 
-    @GetMapping("/disponiblesVsIndisdisponibles")
+    @GetMapping("monopatin/disponiblesVsIndisponibles")
     ReporteMonopatinesDTO getDisponibles();
 
-    @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
+    @GetMapping("monopatin/monopatines-cercanos/latitud/{latitud}/longitud/{longitud}")
     List<MonopatinDTO> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud);
 
-    @PutMapping("/nuevasTarifas/{tarifa}")
-    String setearTarifas(Double tarifa);
+    @PutMapping("tarifa/actualizar-tarifa/{tarifa}")
+    String setearTarifas(@PathVariable Double tarifa);
 
-    @PutMapping("/mantener/{id}")
-    void mantener(Long id);
+    @PutMapping("monopatin/mantener/{id}")
+    void mantener(@PathVariable Long id);
 }

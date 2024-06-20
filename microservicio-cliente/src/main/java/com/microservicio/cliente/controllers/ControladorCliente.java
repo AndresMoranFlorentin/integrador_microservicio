@@ -102,8 +102,8 @@ public class ControladorCliente {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-    @PutMapping("/descontarViaje/{ticket}")
-    public void descontarViaje(@PathVariable TicketDTO ticket) throws Exception {
+    @PutMapping("/descontarViaje")
+    public void descontarViaje(@RequestBody TicketDTO ticket) throws Exception {
         Double monto=ticket.getMonto();
         Long id_cuenta=ticket.getIdCuenta();
         servicioCliente.descontarDeLaCuenta(id_cuenta,monto);

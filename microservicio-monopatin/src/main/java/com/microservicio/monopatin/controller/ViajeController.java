@@ -1,7 +1,9 @@
 package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.ViajeDto;
+import com.microservicio.monopatin.model.Tarifa;
 import com.microservicio.monopatin.model.Viaje;
+import com.microservicio.monopatin.service.TarifaService;
 import com.microservicio.monopatin.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,14 @@ public class ViajeController {
 
     @Autowired
     private ViajeService viajeService;
+    @Autowired
+    private TarifaService tarifaService;
 
     @PostMapping("/generar-viaje")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ViajeDto> save(@RequestBody Viaje viaje){
+        Tarifa t=viaje.getTarifa();
+        tarifaService.save(t);
         ViajeDto vNew = viajeService.save(viaje);
         return ResponseEntity.ok(vNew);
     }

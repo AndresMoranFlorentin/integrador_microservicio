@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.rmi.server.ExportException;
 
 @RestController
-@RequestMapping("/mantenimiento")
+@RequestMapping("/api/mantenimiento")
 public class MantenimientoController {
     @Autowired
     private MantenimientoService mantService;

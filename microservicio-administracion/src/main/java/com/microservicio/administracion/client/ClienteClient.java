@@ -18,7 +18,7 @@ public interface ClienteClient {
     @PutMapping("/habilitar-cuenta/{id_cuenta}")
     CuentaResponseDTO habilitarCuenta(@PathVariable("id_cuenta")Long id_cuenta);
 
-    @PutMapping("/descontarViaje/{ticket}")
-    void descontarViaje(@PathVariable TicketDTO ticket);
+    @PutMapping("/descontarViaje")
+    void descontarViaje(@RequestBody TicketDTO ticket);
 
 }
