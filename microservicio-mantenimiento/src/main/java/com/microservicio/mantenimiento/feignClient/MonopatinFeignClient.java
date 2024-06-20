@@ -17,7 +17,7 @@ public interface MonopatinFeignClient {
     MonopatinDto getMonopatin(@PathVariable("id_monopatin") Long id_monopatin);
 
     @PutMapping("/disponible/{id}")
-    MonopatinDto setDispo(@PathVariable("id") Long id);
+    void setDispo(@PathVariable("id") Long id);
 
     @GetMapping("/reporteXkm")
     List<MonopatinDto> getMonopatinesPorKm();

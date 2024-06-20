@@ -31,33 +31,17 @@ public class MantenimientoService {
     }
 
     @Transactional
-    public Mantenimiento setDispo(Long id_monopatin) throws Exception {//SACAR MONOPATIN DE MANTENIMIENTO
+    public void setDispo(Long id_monopatin) throws Exception {//SACAR MONOPATIN DE MANTENIMIENTO
         try {
             monopatinClient.setDispo(id_monopatin);
-            Mantenimiento m = mantRepo.getMantenimientoById(id_monopatin);
+            Mantenimiento m = new Mantenimiento();
+            MonopatinDto mono = monopatinClient.getMonopatin(id_monopatin);
             m.setFecha_fin(LocalDateTime.now());
-            return mantRepo.save(m);
+            mantRepo.save(m);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-
-    /**
-     * @Transactional
-     *     public EstudianteResponseDTO update(Long id, EstudianteRequestDTO entity) throws Exception {
-     *         Estudiante estudiante = repoEstudiante.findById(id)
-     *                 .orElseThrow(() -> new NotFoundException("Estudiante", id));
-     *
-     *         estudiante.setNombre(entity.getNombre());
-     *         estudiante.setApellido(entity.getApellido());
-     *         estudiante.setGenero(entity.getGenero());
-     *         estudiante.setEdad(entity.getEdad());
-     *         estudiante.setCiudad(entity.getCiudad());
-     *         estudiante.setNum_Libreta(entity.getNum_Libreta());
-     *
-     *         repoEstudiante.save(estudiante);
-     *         return new EstudianteResponseDTO(estudiante);
-     */
 
     @Transactional
     public List<MonopatinDto> getMonopatinesPorKm() throws Exception {

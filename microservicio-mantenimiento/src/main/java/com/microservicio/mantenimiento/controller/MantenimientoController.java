@@ -26,12 +26,13 @@ public class MantenimientoController {
     }
 
     @PutMapping("/liberar_monopatin/{id_monopatin}")
-    public ResponseEntity<?> setDispo(@PathVariable Long id_monopatin) {
-        try {
-            return ResponseEntity.status(HttpStatus.SC_OK).body((mantService.setDispo(id_monopatin)));
-        }catch (Exception e) {
-            return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo liberar el monopatin.\"}");
-        }
+    public void setDispo(@PathVariable("id_monopatin") Long id_monopatin) throws Exception {
+        mantService.setDispo(id_monopatin);
+//        try {
+//            return ResponseEntity.status(HttpStatus.SC_OK).body((mantService.setDispo(id_monopatin)));
+//        }catch (Exception e) {
+//            return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo liberar el monopatin.\"}");
+//        }
     }
 
     @GetMapping("/monopatines_por_km")
