@@ -1,6 +1,7 @@
 package com.microservicio.administracion.controller;
 
 import com.microservicio.administracion.http.request.CuentaDTO;
+import com.microservicio.administracion.http.request.MonopatinEnMantenimientoDTO;
 import com.microservicio.administracion.http.request.ViajeDTO;
 import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.service.AdminService;
@@ -17,9 +18,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PutMapping("/mantenerMonopatin/{id_monopatin}")
-    public void mantenerMonopatin(@PathVariable("id_monopatin") Long id_monopatin) {
-        adminService.mantenerMonopatin(id_monopatin);
+    @PutMapping("/mantenerMonopatin/")
+    public void mantenerMonopatin(@RequestBody MonopatinEnMantenimientoDTO mEMDTO) {
+        adminService.mantenerMonopatin(mEMDTO);
     }
 
     /*

@@ -1,7 +1,9 @@
 package com.microservicio.mantenimiento.controller;
 
+import com.microservicio.mantenimiento.entity.Mantenimiento;
 import com.microservicio.mantenimiento.model.MantenimientoMonopatinDto;
 import com.microservicio.mantenimiento.model.MonopatinDto;
+import com.microservicio.mantenimiento.model.MonopatinEnMantenimientoDTO;
 import com.microservicio.mantenimiento.service.MantenimientoService;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,11 @@ public class MantenimientoController {
         }catch (Exception e) {
             return ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
+    }
+
+    @PostMapping("/inicioMantenimiento")
+    public Mantenimiento guardarInicioMantenimiento(MonopatinEnMantenimientoDTO mEMDTO) throws Exception {
+        return mantService.guardar(mEMDTO);
     }
 
     @PutMapping("/liberar_monopatin/{id_monopatin}")

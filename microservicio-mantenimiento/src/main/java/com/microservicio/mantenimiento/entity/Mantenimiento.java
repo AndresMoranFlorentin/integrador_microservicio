@@ -42,4 +42,13 @@ public class Mantenimiento implements Serializable {
         this.fecha_fin = null;
         this.descripcion = null;
     }
+
+    public Mantenimiento(Long idMonopatin, LocalDateTime fechaInicio, LocalDateTime fechaFin, String descripcion, int kmMonopatin) {
+        this.id_monopatin = idMonopatin;
+        this.fecha_inicio = fechaInicio;
+        this.fecha_fin = fechaFin;
+        this.descripcion = descripcion;
+        this.km_monopatin = kmMonopatin;
+
+    }
 }

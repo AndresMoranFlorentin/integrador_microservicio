@@ -1,9 +1,11 @@
 package com.microservicio.administracion.service;
 
 import com.microservicio.administracion.client.ClienteClient;
+import com.microservicio.administracion.client.MantenimientoClient;
 import com.microservicio.administracion.client.MonopatinClient;
 import com.microservicio.administracion.entity.Ticket;
 import com.microservicio.administracion.http.request.CuentaDTO;
+import com.microservicio.administracion.http.request.MonopatinEnMantenimientoDTO;
 import com.microservicio.administracion.http.request.ViajeDTO;
 import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.repository.AdminRepository;
@@ -30,11 +32,14 @@ public class AdminService {
     @Autowired
     private ClienteClient clienteClient;
 
+    @Autowired
+    private MantenimientoClient mantenimientoClient;
 
 
     @Transactional
-    public void mantenerMonopatin(Long id_monopatin) {
-        monopatinClient.mantener(id_monopatin);
+    public void mantenerMonopatin(MonopatinEnMantenimientoDTO mEMDTO) {
+        monopatinClient.mantener(mEMDTO.getId_monopatin());
+        mantenimientoClient.guardarInicioMantenimiento(mEMDTO);
     }
 
     @Transactional
