@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface MantenimientoRepository extends JpaRepository<Mantenimiento, Long> {
 
     @Query("SELECT m FROM Mantenimiento m WHERE m.id_monopatin = :idm")
-    public Mantenimiento getMantenimientoById(@Param("idm") Long idm);
+    Mantenimiento getMantenimientoById(@Param("idm") Long idm);
 }

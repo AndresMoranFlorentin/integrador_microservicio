@@ -17,11 +17,21 @@ public class TarifaService {
     private final Long ID = 1L;
 
     @Transactional
-    public Tarifa actualizarTarifa(Tarifa tarifa) {
+    public String actualizarTarifa(Double tarifa) {
         Optional<Tarifa> o = tarifaRepository.findById(ID);
         Tarifa t = o.get();
-        t.setPrecio(tarifa.getPrecio());
-        return tarifaRepository.save(t);
+        t.setPrecio(tarifa);
+        Tarifa tarif= tarifaRepository.save(t);
+        if(tarif!=null){
+            return "se actualizo con exito la tarifa";
+        }
+        else{
+            return " has fracasado miserablemente";
+        }
+    }
+
+    public void save(Tarifa t) {
+        tarifaRepository.save(t);
     }
 }
 

@@ -15,6 +15,8 @@ import com.microservicio.administracion.service.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -85,13 +87,13 @@ public class AdminService {
     }
 
     @Transactional
-    public String setearTarifas(Double tarifa) {
+    public String setearTarifas(@PathVariable Double tarifa) {
         String mensaje = monopatinClient.setearTarifas(tarifa);
         return mensaje;
     }
 
     @Transactional
-    public TicketDTO agregarTicket(ViajeDTO viaje) {
+    public TicketDTO agregarTicket(@RequestBody ViajeDTO viaje) {
         Ticket ticket = new Ticket(viaje);
         adminRepository.save(ticket);
         TicketDTO tDTO = new TicketDTO(ticket);

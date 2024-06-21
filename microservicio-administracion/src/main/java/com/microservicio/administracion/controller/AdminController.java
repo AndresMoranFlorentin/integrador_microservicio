@@ -93,8 +93,8 @@ public class AdminController {
         return monopatinesCercanos;
     }
 
-    @PostMapping("api/administracion/generarTicket/{viaje}")
-    public TicketDTO generarTicket(@PathVariable ViajeDTO viaje){
+    @PostMapping("/generarTicket")
+    public TicketDTO generarTicket(@RequestBody ViajeDTO viaje){
         TicketDTO tDTO = adminService.agregarTicket(viaje);
         return tDTO;
     }

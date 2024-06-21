@@ -41,6 +41,7 @@ public class CargarCsv {
                 mono.setKmAcumulados(Integer.valueOf(csvRecord.get("kmAcumulados")));
                 mono.setLongitud(Double.valueOf(csvRecord.get("longitud")));
                 mono.setLatitud(Double.valueOf(csvRecord.get("latitud")));
+
                 repoMono.save(mono);
             }
         }
@@ -53,7 +54,7 @@ public class CargarCsv {
 
                 for (CSVRecord csvRecord : csvParser) {
                     Tarifa tarifa = new Tarifa();
-                    tarifa.setIdTarifa(Long.valueOf(csvRecord.get("idTarifa")));
+                    tarifa.setIdTarifa(Long.valueOf(csvRecord.get("id_tarifa")));
                     tarifa.setPrecio(Double.valueOf(csvRecord.get("precio")));
                     repoTarifa.save(tarifa);
                 }
@@ -85,7 +86,7 @@ public class CargarCsv {
 
                 // Crear y asignar la Tarifa
                 Tarifa tarifa = new Tarifa();
-                tarifa.setIdTarifa(Long.valueOf(csvRecord.get("tarifa.idTarifa")));
+                tarifa.setIdTarifa(Long.valueOf(csvRecord.get("tarifa.id_tarifa")));
                 tarifa.setPrecio(Double.valueOf(csvRecord.get("tarifa.precio")));
                 //a la tarifa dejarle el viaje
                 tarifa.addViaje(viaje);
