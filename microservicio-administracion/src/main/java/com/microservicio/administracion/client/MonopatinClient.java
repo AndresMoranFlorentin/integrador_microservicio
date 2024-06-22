@@ -14,8 +14,8 @@ public interface MonopatinClient {
 
 
 
-    @GetMapping("monopatin/reporteDeViajePorAnioX/{cantViajes}/{anio}")
-    List<MonopatinDTO> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int anio);
+    @GetMapping("monopatin/reporteViajes/{cantViajes}/{year}")
+    List<MonopatinDTO> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int year);
 
     @GetMapping("monopatin/disponiblesVsIndisponibles")
     ReporteMonopatinesDTO getDisponibles();

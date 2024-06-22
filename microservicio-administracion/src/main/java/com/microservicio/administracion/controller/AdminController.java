@@ -18,15 +18,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    /*
+     * Registrar fin de mantenimiento de monopatín
+    */
     @PutMapping("/mantenerMonopatin/")
     public void mantenerMonopatin(@RequestBody MonopatinEnMantenimientoDTO mEMDTO) {
         adminService.mantenerMonopatin(mEMDTO);
     }
 
-    /*
-    *   3b) Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
-    *   misma
-    */
 
     @PutMapping("/setearTarifa/{tarifa}")
     public String setearTarifa(@PathVariable("tarifa") Double tarifa) {
@@ -34,12 +33,19 @@ public class AdminController {
         return mensaje;
     }
 
+    /*
+     *   3b) Como administrador quiero poder reactivar cuentas para habilitar el uso momentáneo de la
+     *   misma
+     */
     @PutMapping("/desactivarCuenta/{id_cuenta}")
     public ResponseEntity<?> desabilitarCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
         CuentaResponseDTO cDTO = adminService.inhabilitarCuenta(id_cuenta);
         return ResponseEntity.ok(cDTO);
     }
-
+    /*
+     *   3b) Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
+     *   misma
+     */
     @PutMapping("/activarCuenta/{id_cuenta}")
     public CuentaResponseDTO activarCuenta(@PathVariable("id_cuenta") Long id_cuenta) {
         CuentaResponseDTO cDTO = adminService.habilitarCuenta(id_cuenta);
@@ -56,9 +62,9 @@ public class AdminController {
     *    3c) Como administrador quiero consultar los monopatines con más de X
     *    viajes en un cierto año.
     */
-    @GetMapping("/monopatines/{minViajes}/{year}")
-    public ResponseEntity<?> getMonopatinesConMasViajes(@PathVariable int minViajes, @PathVariable int year) {
-        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(minViajes, year);
+    @GetMapping("/monopatines/{cantViajes}/{year}")
+    public ResponseEntity<?> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int year) {
+        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(cantViajes, year);
         return ResponseEntity.ok(monopatines);
     }
 

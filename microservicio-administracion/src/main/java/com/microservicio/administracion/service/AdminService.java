@@ -69,8 +69,8 @@ public class AdminService {
     }
 
     @Transactional
-    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int minViajes, int anio ){
-        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(minViajes, anio);
+    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int cantViajes, int year ){
+        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(cantViajes, year);
         return MonopatinconXViajesResponseDTO.builder()
                 .monopatines(monopatines)
                 .build();

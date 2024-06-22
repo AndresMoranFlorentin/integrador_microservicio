@@ -4,6 +4,7 @@ import com.microservicio.mantenimiento.entity.Mantenimiento;
 import com.microservicio.mantenimiento.feignClient.MonopatinFeignClient;
 import com.microservicio.mantenimiento.model.MantenimientoMonopatinDto;
 import com.microservicio.mantenimiento.model.MonopatinDto;
+import com.microservicio.mantenimiento.model.MonopatinEnMantenimientoDTO;
 import com.microservicio.mantenimiento.repository.MantenimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,11 @@ public class MantenimientoService {
     public List<MonopatinDto> getMonopatinesPorKm() throws Exception {
         List<MonopatinDto> monopatines = monopatinClient.getMonopatinesPorKm();
         return monopatines;
+    }
+
+    public Mantenimiento guardar(MonopatinEnMantenimientoDTO mEMDTO) {
+        Mantenimiento m = new Mantenimiento(mEMDTO.getId_monopatin(), mEMDTO.getFecha_inicio(), mEMDTO.getFecha_fin(), mEMDTO.getDescripcion(), mEMDTO.getKm_monopatin());
+        mantRepo.save(m);
+        return m;
     }
 }
