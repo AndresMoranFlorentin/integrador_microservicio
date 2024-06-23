@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "msvc-administracion", url="http://localhost:9080/api/admin")
+@FeignClient(name = "msvc-administracion", url="http://localhost:8080/api/admin")
 public interface ClientFeignAdministracion {
     @GetMapping("/pedir-viaje/{id_usuario}/{ubicacion}")
     public Viaje pedirViaje(@PathVariable("id_usuario")Long id_usuario, @PathVariable("ubicacion") String ubicacion);

@@ -1,10 +1,10 @@
 package com.microservicio.monopatin.service;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
+import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,5 +88,23 @@ public class MonopatinService {
         return lista;
     }
 
+    public List<MonopatinDtoConPausa> getMonopatinesPorKmConPausa() {
+        List<Object[]> resultados = monopatinRepository.getPorKmConPausa();
+        List<MonopatinDtoConPausa> listaDto = new ArrayList<>();
+
+        for (Object[] resultado : resultados) {
+            Long idMonopatin = (Long) resultado[0];
+            String modelo = (String) resultado[1];
+            int kmAcumulados = (int) resultado[2];
+            Double tiempoPausado = (Double) resultado[3];
+            System.out.println("id:"+idMonopatin+", "+modelo+","+kmAcumulados+","+tiempoPausado);
+
+            MonopatinDtoConPausa dto = new MonopatinDtoConPausa(idMonopatin, modelo, kmAcumulados, tiempoPausado);
+            System.out.println(dto);
+            listaDto.add(dto);
+        }
+
+        return listaDto;
+    }
 }
 

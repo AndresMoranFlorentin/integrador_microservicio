@@ -9,16 +9,12 @@ import com.microservicio.administracion.http.request.MonopatinEnMantenimientoDTO
 import com.microservicio.administracion.http.request.ViajeDTO;
 import com.microservicio.administracion.http.response.*;
 import com.microservicio.administracion.repository.AdminRepository;
-import com.microservicio.administracion.http.request.AdministradorRequestDTO;
-import com.microservicio.administracion.service.dto.response.AdministradorResponseDTO;
-import com.microservicio.administracion.service.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -63,17 +59,15 @@ public class AdminService {
 
 
     @Transactional
-    public List<MonopatinDTO> getMonopatinesCercanos(Double latitud, Double longitud) {
-        List<MonopatinDTO> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(latitud, longitud);
+    public List<MonopatinDto> getMonopatinesCercanos(Double latitud, Double longitud) {
+        List<MonopatinDto> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(latitud, longitud);
         return monopatinesCercanos;
     }
 
     @Transactional
-    public MonopatinconXViajesResponseDTO getMonopatinesConMasViajes(int cantViajes, int year ){
-        List<MonopatinDTO> monopatines = monopatinClient.getMonopatinesConMasViajes(cantViajes, year);
-        return MonopatinconXViajesResponseDTO.builder()
-                .monopatines(monopatines)
-                .build();
+    public  List<MonopatinDto>  getMonopatinesConMasViajes(int cantViajes, int year ){
+        List<MonopatinDto> monopatines = monopatinClient.getMonopatinesConMasViajes(cantViajes, year);
+        return monopatines;
     }
 
     @Transactional

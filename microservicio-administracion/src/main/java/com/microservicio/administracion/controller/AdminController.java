@@ -63,9 +63,8 @@ public class AdminController {
     *    viajes en un cierto año.
     */
     @GetMapping("/monopatines/{cantViajes}/{year}")
-    public ResponseEntity<?> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int year) {
-        MonopatinconXViajesResponseDTO monopatines = adminService.getMonopatinesConMasViajes(cantViajes, year);
-        return ResponseEntity.ok(monopatines);
+    public ResponseEntity<List<MonopatinDto>> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int year) {
+        return ResponseEntity.ok( adminService.getMonopatinesConMasViajes(cantViajes, year));
     }
 
     /*
@@ -94,8 +93,8 @@ public class AdminController {
     *    un monopatín cerca de mi ubicación
     */
     @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
-    public List<MonopatinDTO> getMonopatinesMasCercanos(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
-        List<MonopatinDTO> monopatinesCercanos = adminService.getMonopatinesCercanos(latitud, longitud);
+    public List<MonopatinDto> getMonopatinesMasCercanos(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
+        List<MonopatinDto> monopatinesCercanos = adminService.getMonopatinesCercanos(latitud, longitud);
         return monopatinesCercanos;
     }
 

@@ -2,12 +2,13 @@ package com.microservicio.mantenimiento.feignClient;
 
 
 import com.microservicio.mantenimiento.model.MonopatinDto;
+import com.microservicio.mantenimiento.model.MonopatinDtoConPausa;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="msvc-monopatin", url = "http://localhost:9090/api/monopatin")
+@FeignClient(name="msvc-monopatin", url = "http://localhost:8080/api/monopatin")
 public interface MonopatinFeignClient {
 
     @PostMapping("/save")
@@ -21,4 +22,6 @@ public interface MonopatinFeignClient {
 
     @GetMapping("/reporteXkm")
     List<MonopatinDto> getMonopatinesPorKm();
+    @GetMapping("/reporteXkmConPausa")
+    List<MonopatinDtoConPausa> getMonopatinesPorKmConPausa();
 }

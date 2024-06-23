@@ -1,14 +1,9 @@
 package com.microservicio.cliente.dto;
 
-import com.microservicio.cliente.entities.Usuario;
 import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
-
 @NoArgsConstructor
 @Getter
 @Data

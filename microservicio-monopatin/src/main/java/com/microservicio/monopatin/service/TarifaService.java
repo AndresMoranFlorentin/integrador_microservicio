@@ -33,5 +33,6 @@ public class TarifaService {
     public void save(Tarifa t) {
         tarifaRepository.save(t);
     }
+
 }
 

@@ -22,4 +22,10 @@ public interface MonopatinRepository extends JpaRepository <Monopatin, Long>{
     Integer getDisponibles();
     @Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado != 'Disponible'")
     Integer getNoDisponibles();
+    @Query("SELECT m.idMonopatin, m.modelo, m.kmAcumulados, (SUM(v.tiempoPausado)) "+
+            "FROM Monopatin m JOIN Viaje v ON (v.conPausa=true) " +
+            "AND m.idMonopatin=v.idMonopatin " +
+            "ORDER BY m.kmAcumulados DESC")
+    List<Object[]> getPorKmConPausa();
+
 }

@@ -1,7 +1,6 @@
 package com.microservicio.administracion.http.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;

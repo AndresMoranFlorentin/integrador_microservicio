@@ -1,10 +1,10 @@
 package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
+import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
 import com.microservicio.monopatin.dto.ReporteMonopatinesDto;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.service.MonopatinService;
-import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +57,10 @@ public class MonopatinController {
             return  ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(m);
+    }
+    @GetMapping("/reporteXkmConPausa")
+    List<MonopatinDtoConPausa> getMonopatinesPorKmConPausa(){
+        return monopatinService.getMonopatinesPorKmConPausa();
     }
 
     @GetMapping("/reporteViajes/{cantViajes}/{year}")

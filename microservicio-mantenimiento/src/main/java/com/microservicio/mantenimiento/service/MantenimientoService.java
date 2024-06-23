@@ -4,13 +4,17 @@ import com.microservicio.mantenimiento.entity.Mantenimiento;
 import com.microservicio.mantenimiento.feignClient.MonopatinFeignClient;
 import com.microservicio.mantenimiento.model.MantenimientoMonopatinDto;
 import com.microservicio.mantenimiento.model.MonopatinDto;
+import com.microservicio.mantenimiento.model.MonopatinDtoConPausa;
 import com.microservicio.mantenimiento.model.MonopatinEnMantenimientoDTO;
 import com.microservicio.mantenimiento.repository.MantenimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("MantenimientoService")
@@ -61,14 +65,18 @@ public class MantenimientoService {
      */
 
     @Transactional
-    public List<MonopatinDto> getMonopatinesPorKm() throws Exception {
-        List<MonopatinDto> monopatines = monopatinClient.getMonopatinesPorKm();
-        return monopatines;
+    public List<?> getMonopatinesPorKm(@PathVariable boolean pausa) throws Exception {
+        List<?> monopatines=new ArrayList();
+        if(pausa==true){
+           return  monopatines=monopatinClient.getMonopatinesPorKmConPausa();
+        }
+        else{
+           return  monopatines = monopatinClient.getMonopatinesPorKm();
+        }
     }
 
-    public Mantenimiento guardar(MonopatinEnMantenimientoDTO mEMDTO) {
+    public void guardar(MonopatinEnMantenimientoDTO mEMDTO) {
         Mantenimiento m = new Mantenimiento(mEMDTO.getId_monopatin(), mEMDTO.getFecha_inicio(), mEMDTO.getFecha_fin(), mEMDTO.getDescripcion(), mEMDTO.getKm_monopatin());
         mantRepo.save(m);
-        return m;
-    }
+     }
 }

@@ -6,7 +6,7 @@ import com.microservicio.administracion.http.response.TicketDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "msvc-cliente" , url = "localhost:5080/api/cliente")
+@FeignClient(name = "msvc-cliente" , url = "localhost:8080/api/cliente")
 public interface ClienteClient {
 
     @PutMapping("/inhabilitar-cuenta/{id_cuenta}")

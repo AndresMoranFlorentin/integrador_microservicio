@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MonopatinDto {
-
     private Long id;
+    private String modelo;
     private String ubicacion;
     private int kmAcumulados;
-    private double tarifa;
-    private double tarifaExtra;
 
 }
 
