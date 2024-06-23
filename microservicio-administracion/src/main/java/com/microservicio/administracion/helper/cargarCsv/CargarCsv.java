@@ -20,13 +20,14 @@ public class CargarCsv {
     @Autowired
     private AdminRepository adminRepository;
     public void cargar() throws IOException {
-        File archivoCSV = ResourceUtils.getFile("microservicio-administracion/src/main/java/com/microservicio/administracion/helper/csv/ticket.csv");
+        File archivoCSV = ResourceUtils.getFile("microservicio-administracion/src/main/java/com/microservicio/administracion/helper/Csv/ticket.csv");
 
         try (FileReader reader = new FileReader(archivoCSV);
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
             for (CSVRecord csvRecord : csvParser) {
                 Ticket ticket = new Ticket();
+                ticket.setId(Long.valueOf(csvRecord.get("id")));
                 ticket.setFecha(LocalDateTime.parse(csvRecord.get("fecha")));
                 ticket.setIdCuenta(Long.valueOf(csvRecord.get("idCuenta")));
                 ticket.setId_usuario(Long.valueOf(csvRecord.get("id_usuario")));
