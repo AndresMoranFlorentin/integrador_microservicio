@@ -5,11 +5,11 @@ Microservicios:
              BBDD mantenimientodb
   Administracion: puerto 9080
              BBDD administraciondb
-  Usuario: puerto 8070
-             BBDD usuariodb
+  Auth_User: puerto 8070
+             BBDD authenticationdb
   Cliente: puerto 5080
              BBDD clientedb
   Eureka: puerto 8761
   Gateway: puerto 8080
-  Config: puerto 8888?--->falta configurar, no prende
+  Config: puerto 8888 
   
