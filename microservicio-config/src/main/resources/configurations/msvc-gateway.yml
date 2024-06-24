@@ -30,6 +30,8 @@ spring:
           uri: 'http://localhost:9080'
           predicates:
             - Path=/api/admin/**
+          filters:
+            - AuthFilter
         - id: mantenimiento
           uri: 'http://localhost:8060'
           predicates:
@@ -42,3 +44,5 @@ spring:
           uri: 'http://localhost:8070'
           predicates:
             - Path=/api/auth/**
+          filters:
+            - AuthFilter

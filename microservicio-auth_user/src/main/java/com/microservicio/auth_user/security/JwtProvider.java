@@ -1,6 +1,6 @@
 package com.microservicio.auth_user.security;
 
-import com.microservicio.auth_user.entities.AuthUser;
+import com.microservicio.auth_user.model.UserAuth;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -33,7 +33,7 @@ public class JwtProvider {
         }
     }
 
-    public String createToken(AuthUser authUser) {
+    public String createToken(UserAuth authUser) {
         Map<String, Object> claims = new HashMap<>();
         claims = Jwts.claims().setSubject(authUser.getUserName());
         claims.put("id", authUser.getId());

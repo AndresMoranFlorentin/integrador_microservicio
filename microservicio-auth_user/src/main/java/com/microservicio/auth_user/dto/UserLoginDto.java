@@ -1,5 +1,6 @@
 package com.microservicio.auth_user.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenDto {
+public class UserLoginDto {
 	
-	private String token;
+	@NotBlank
+	private String username;
+	
+	@NotBlank
+	private String password;
 }

@@ -1,4 +1,4 @@
-package com.microservicio.auth_user.entities;
+package com.microservicio.auth_user.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,15 +8,21 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
-public class AuthUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String userName;
-    private String password;
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	private String role;
+	
+	public Role(String role) {
+		this.role = role;
+	}
 }
