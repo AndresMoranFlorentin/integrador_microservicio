@@ -6,3 +6,9 @@ spring:
 
 jwt:
   secret: secret
+
+admin-paths:
+  paths:
+    -
+      uri:
+      method:
