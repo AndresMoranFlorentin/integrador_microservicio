@@ -9,7 +9,7 @@ public class RouteValidator {
 
     //endpoints públicos
     public static final List<String> openApiEndpoints = List.of(
-            "/auth"//,
+            "/api/auth"//,
 //			"/v2/api-docs",
 //			"/v3/api-docs",
 //			"/v3/api-docs/**",

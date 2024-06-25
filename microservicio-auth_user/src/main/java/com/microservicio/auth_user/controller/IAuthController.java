@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Validated
 public interface IAuthController {
 	
@@ -27,7 +27,7 @@ public interface IAuthController {
 	@ResponseStatus(HttpStatus.OK)
 	ResponseEntity<TokenDto> login(@RequestBody @Valid UserLoginDto user);
 	
-	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
 	ResponseEntity<HttpStatus> register(@RequestBody @Valid UserCreateDto user);
