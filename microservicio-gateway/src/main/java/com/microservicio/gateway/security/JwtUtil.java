@@ -23,7 +23,7 @@ public class JwtUtil {
         boolean hasRole = false;
         System.out.println("hasRole: " + hasRole+"  ----------------------------------------------------------------");
 
-        if (path.contains("/auth") ) {
+        if (path.contains("/user") ) {
             System.out.println("http method: " + httpMethod+"  ----------------------------------------------------------------");
 
             if ("GET".equalsIgnoreCase(httpMethod)) {

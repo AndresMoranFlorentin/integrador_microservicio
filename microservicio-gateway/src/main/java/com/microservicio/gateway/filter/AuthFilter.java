@@ -38,7 +38,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config>{
                 String[] parts = authHeader.split(" ");
 
                 if(parts.length != 2 || !parts[0].equals("Bearer")) {
-                    throw new RuntimeException("Incorrect auth structure");
+                     throw new RuntimeException("Incorrect auth structure");
                 }
                 try {
                     jwtUtil.validateJwtToken(parts[1], path, httpMethod);
