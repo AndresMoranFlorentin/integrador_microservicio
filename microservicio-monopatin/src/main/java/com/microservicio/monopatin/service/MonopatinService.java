@@ -2,6 +2,7 @@ package com.microservicio.monopatin.service;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
 import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
+import com.microservicio.monopatin.dto.MonopatinDtoNuevo;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,11 @@ public class MonopatinService {
     private Double distancia_cercana = 1000.0;
 
     @Transactional
-    public MonopatinDto save(Monopatin monopatin) {
-        Monopatin mAux = monopatinRepository.save(monopatin);
-        MonopatinDto mNew = new MonopatinDto(mAux);
-        return mNew;
+    public MonopatinDto save(String modelo) {
+        Monopatin nuevo = new Monopatin(modelo);
+        monopatinRepository.save(nuevo);
+        MonopatinDto comun = new MonopatinDto(nuevo);
+        return comun;
     }
 
     @Transactional
@@ -97,7 +99,7 @@ public class MonopatinService {
             String modelo = (String) resultado[1];
             int kmAcumulados = (int) resultado[2];
             Double tiempoPausado = (Double) resultado[3];
-            System.out.println("id:"+idMonopatin+", "+modelo+","+kmAcumulados+","+tiempoPausado);
+            System.out.println("id:" + idMonopatin + ", " + modelo + "," + kmAcumulados + "," + tiempoPausado);
 
             MonopatinDtoConPausa dto = new MonopatinDtoConPausa(idMonopatin, modelo, kmAcumulados, tiempoPausado);
             System.out.println(dto);

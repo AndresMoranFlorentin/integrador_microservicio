@@ -28,10 +28,10 @@ public class Cuenta {
     @JsonIgnore
     private List<Usuario> usuarios;
 
-    public Cuenta(String nombre,Double monto,LocalDateTime fecha_de_alta) {
+    public Cuenta(String nombre,Double monto) {
         this.nombre_cuenta=nombre;
         this.monto=monto;
-        this.fecha_de_alta=fecha_de_alta;
+        this.fecha_de_alta=LocalDateTime.now();
     }
 
 

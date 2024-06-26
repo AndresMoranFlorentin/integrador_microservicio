@@ -1,6 +1,7 @@
 package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.ViajeDto;
+import com.microservicio.monopatin.dto.ViajeInicioDto;
 import com.microservicio.monopatin.model.Tarifa;
 import com.microservicio.monopatin.model.Viaje;
 import com.microservicio.monopatin.service.TarifaService;
@@ -21,11 +22,10 @@ public class ViajeController {
 
     @PostMapping("/generar-viaje")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ViajeDto> save(@RequestBody Viaje viaje){
-        Tarifa t=viaje.getTarifa();
-        tarifaService.save(t);
-        ViajeDto vNew = viajeService.save(viaje);
-        return ResponseEntity.ok(vNew);
+    public ViajeDto save(@RequestBody ViajeInicioDto viaje){
+        Tarifa t=tarifaService.getTarifa();
+        ViajeDto vNew = viajeService.save(viaje,t);
+         return  vNew;
     }
 
     @PutMapping("/finalizar-viaje/{idViaje}")

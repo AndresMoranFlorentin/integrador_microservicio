@@ -34,5 +34,10 @@ public class TarifaService {
         tarifaRepository.save(t);
     }
 
+    public Tarifa getTarifa() {
+        Optional<Tarifa> t=tarifaRepository.findById(ID);
+        Tarifa tarifa=t.get();
+        return tarifa ;
+    }
 }
 

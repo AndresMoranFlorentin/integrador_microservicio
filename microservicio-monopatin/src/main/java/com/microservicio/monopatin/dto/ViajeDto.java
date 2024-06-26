@@ -3,14 +3,16 @@ package com.microservicio.monopatin.dto;
 import com.microservicio.monopatin.model.Viaje;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class ViajeDto {
-
+    private Long idViaje;
     private LocalDateTime inicio;
 
     private LocalDateTime fin;
@@ -32,6 +34,7 @@ public class ViajeDto {
     private Double tiempoPausado;
 
     public ViajeDto(Viaje viaje){
+        this.idViaje=viaje.getIdViaje();
         this.inicio = viaje.getInicio();
         this.fin = viaje.getFin();
         this.costo = viaje.getCosto();

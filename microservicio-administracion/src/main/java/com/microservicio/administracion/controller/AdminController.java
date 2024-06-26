@@ -10,13 +10,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    /**
+     *
+     * Agregar nuevo monopatin
+     */
+    @PostMapping("/crear-monopatin/{modelo}")
+    public MonopatinDto crearMonopatin(@PathVariable("modelo") String modelo){
+        return adminService.crearMonopatin(modelo);
+    }
 
     /*
      * Registrar fin de mantenimiento de monopatín

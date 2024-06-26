@@ -11,23 +11,16 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class CuentaDTO {
-    @Column
-    private Long id_cuenta;
-    @Column
     private String nombre_cuenta;
-    @Column
-    private Double monto;
-    @Column
-    private boolean habilitado;
-    @Column
-    private LocalDateTime fecha_de_alta;
+     private Double monto;
+     private boolean habilitado=true;
+     private LocalDateTime fecha_de_alta;
 
-    public CuentaDTO(Long id,String nombreCuenta, Double monto,boolean habilitado,LocalDateTime fechaDeAlta) {
-        this.id_cuenta=id;
+    public CuentaDTO(String nombreCuenta, Double monto,boolean habilitado,LocalDateTime fecha) {
         this.nombre_cuenta=nombreCuenta;
         this.monto=monto;
         this.habilitado=habilitado;
-        this.fecha_de_alta=fechaDeAlta;
+        this.fecha_de_alta=fecha;
 
     }
 

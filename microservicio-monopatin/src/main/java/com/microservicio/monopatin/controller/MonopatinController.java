@@ -2,6 +2,7 @@ package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
 import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
+import com.microservicio.monopatin.dto.MonopatinDtoNuevo;
 import com.microservicio.monopatin.dto.ReporteMonopatinesDto;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.service.MonopatinService;
@@ -20,11 +21,11 @@ public class MonopatinController {
     private MonopatinService monopatinService;
 
 
-    @PostMapping("/generar-monopatin")
+    @PostMapping("/generar-monopatin/{modelo}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<MonopatinDto> save(@RequestBody Monopatin monopatin){
-        MonopatinDto mNew = monopatinService.save(monopatin);
-        return ResponseEntity.ok(mNew);
+    public MonopatinDto save(@PathVariable String modelo){
+        MonopatinDto mNew = monopatinService.save(modelo);
+        return mNew;
     }
 
     @DeleteMapping("/borrar/{id}")

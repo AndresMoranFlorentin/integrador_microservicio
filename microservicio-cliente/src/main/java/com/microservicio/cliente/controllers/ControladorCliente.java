@@ -1,8 +1,6 @@
 package com.microservicio.cliente.controllers;
 
-import com.microservicio.cliente.dto.CuentaDTO;
-import com.microservicio.cliente.dto.TicketDTO;
-import com.microservicio.cliente.dto.UsuarioDto;
+import com.microservicio.cliente.dto.*;
 import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
 import com.microservicio.cliente.entities.Cuenta;
@@ -54,7 +52,7 @@ public class ControladorCliente {
        return ResponseEntity.ok("su viaje: "+viaje.toString()+" ha iniciado con exito ");
     }
     @PostMapping("/registrar-usuario")
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<?> registrarUsuario(@RequestBody UsuarioDto usuario){
         UsuarioDto nuevo=servicioCliente.registrarUsuario(usuario);
         if(nuevo!=null){
             return ResponseEntity.status(HttpStatus.OK).body("Fue registrado con exito el usuario: "+nuevo.getNombre()+" "+nuevo.getApellido());
@@ -68,6 +66,15 @@ public class ControladorCliente {
              return ResponseEntity.status(HttpStatus.OK).body(nuevo);
          }
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+     }
+     @PostMapping("/generar-viaje")
+     public ViajeDto generarViaje(@RequestBody ViajeInicioDto viaje) {
+          ViajeDto nuevo=servicioCliente.generarViaje(viaje);
+          return nuevo;
+     }
+    @PutMapping("/finalizar-viaje/{idViaje}")
+    public void generarViaje(@PathVariable Long idViaje) {
+         servicioCliente.finalizarViaje(idViaje);
      }
      @PutMapping("/asignar-cuenta-a-usuario/cuenta/{id_cuenta}/idusuario/{id_usuario}")
     public ResponseEntity<?> asignarUsuarioACuenta(@PathVariable("id_cuenta") Long id_cuenta,@PathVariable("id_usuario")Long id_usuario){
@@ -124,4 +131,5 @@ public class ControladorCliente {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
+
 }

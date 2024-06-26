@@ -104,4 +104,8 @@ public class AdminService {
         rtDTO.setTotalFacturado(totalFacturado);
         return rtDTO;
     }
+    @Transactional
+    public MonopatinDto crearMonopatin(String modelo) {
+        return monopatinClient.save(modelo);
+    }
 }

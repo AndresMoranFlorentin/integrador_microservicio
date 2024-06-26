@@ -3,6 +3,7 @@ package com.microservicio.monopatin.service;
 import com.microservicio.monopatin.client.AdministracionClient;
 import com.microservicio.monopatin.controller.MonopatinController;
 import com.microservicio.monopatin.dto.ViajeDto;
+import com.microservicio.monopatin.dto.ViajeInicioDto;
 import com.microservicio.monopatin.model.Tarifa;
 import com.microservicio.monopatin.model.Viaje;
 import com.microservicio.monopatin.repository.TarifaRepository;
@@ -25,9 +26,10 @@ public class ViajeService {
 
 
     @Transactional
-    public ViajeDto save(Viaje viaje) {
-        Viaje vAux = viajeRepository.save(viaje);
-        ViajeDto vNew = new ViajeDto(vAux);
+    public ViajeDto save(ViajeInicioDto dto, Tarifa t) {
+        Viaje viaje = new Viaje(dto.getIdMonopatin(), dto.getIdCuenta(), dto.getIdUsuario(), t);
+        Viaje guardado = viajeRepository.save(viaje);
+        ViajeDto vNew = new ViajeDto(guardado);
         return vNew;
     }
 

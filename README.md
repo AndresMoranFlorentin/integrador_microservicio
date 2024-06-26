@@ -9,7 +9,16 @@ Microservicios:
              BBDD usuariodb
   Cliente: puerto 5080
              BBDD clientedb
+
   Eureka: puerto 8761
   Gateway: puerto 8080
-  Config: puerto 8888?--->falta configurar, no prende
+  Config: puerto 8888 
+
+## Para iniciar la aplicacion se debe encender:
+ - Config-Server
+ - Eureka-Server
+ - Gateway-Server
+ - Monopatin-Server
+ - en adelante cualquier otro microservicio que se necesite usar
   
+### el microservicio cliente tiene precargado

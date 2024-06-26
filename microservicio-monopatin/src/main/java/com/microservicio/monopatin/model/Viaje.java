@@ -1,6 +1,8 @@
 package com.microservicio.monopatin.model;
 
+import com.microservicio.monopatin.dto.ViajeInicioDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,13 +13,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "viaje")
 public class Viaje implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="idViaje")
+   // @Column(name="idViaje")
     private Long idViaje;
     @Column
     private LocalDateTime inicio;
@@ -52,6 +55,15 @@ public class Viaje implements Serializable {
         this.tarifa=tarifa;
         this.tarifaExtra=0.10;
     }
+
+//    public Viaje(ViajeInicioDto dto,Tarifa t) {
+//        this.idMonopatin=dto.getIdMonopatin();
+//        this.idCuenta = dto.getIdCuenta();
+//        this.idUsuario = dto.getIdUsuario();
+//        this.inicio = LocalDateTime.now();
+//        this.tarifa=t;
+//        this.tarifaExtra=0.10;
+//    }
 
     public void setFin() {
         this.fin = LocalDateTime.now();

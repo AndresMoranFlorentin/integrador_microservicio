@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Builder
 public class CuentaResponseDTO {
 
-    private Long id_cuenta;
     private String nombre_cuenta;
     private Float monto;
     private boolean habilitado;
