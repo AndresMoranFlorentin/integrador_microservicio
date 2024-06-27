@@ -18,14 +18,20 @@ spring:
           uri: 'http://localhost:9090'
           predicates:
             - Path=/api/monopatin/**
+          filters:
+            - AuthFilter
         - id: viaje
           uri: 'http://localhost:9090'
           predicates:
             - Path=/api/viaje/**
+          filters:
+            - AuthFilter
         - id: tarifa
           uri: 'http://localhost:9090'
           predicates:
             - Path=/api/tarifa/**
+          filters:
+            - AuthFilter
         - id: administracion
           uri: 'http://localhost:9080'
           predicates:
@@ -40,6 +46,8 @@ spring:
           uri: 'http://localhost:5080'
           predicates:
             - Path=/api/cliente/**
+          filters:
+            - AuthFilter
         - id: auth_user
           uri: 'http://localhost:8070'
           predicates:
