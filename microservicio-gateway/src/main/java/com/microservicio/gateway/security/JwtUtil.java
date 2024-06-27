@@ -15,16 +15,28 @@ public class JwtUtil {
     private String secret;
 
     public boolean validateJwtToken(String token, String path, String httpMethod) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(this.secret)
-                .parseClaimsJws(token)
-                .getBody();
-
         boolean hasRole = false;
-        System.out.println("hasRole: " + hasRole+"  ----------------------------------------------------------------");
 
-        if (path.contains("/user") ) {
-            System.out.println("http method: " + httpMethod+"  ----------------------------------------------------------------");
+        System.out.println("hasRole: " + hasRole + "  ----------------------------------------------------------------");
+        System.out.println(" Get.equalsIgnoreCase(httpMethod) da:  " + ("GET".equalsIgnoreCase(httpMethod)));
+        System.out.println("contiene /api/ ?: " + path.contains("/api/"));
+        System.out.println("path entera  : " + path);
+        System.out.println("true o false en el if de claims: " + path.contains("/api/"));
+
+        Claims claims;
+             claims = Jwts.parser()
+                    .setSigningKey(this.secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            System.out.println("Claims: " + claims);
+
+        boolean isTokenExpired = claims.getExpiration().before(new Date());
+
+        System.out.println("Expiro el token?: " + isTokenExpired);
+        System.out.println("El role tiene hasRole(claims, 'ADMIN,USER') ?: " + hasRole(claims, "ADMIN,USER"));
+
+        if (path.contains("/api/")) {
 
             if ("GET".equalsIgnoreCase(httpMethod)) {
                 hasRole = hasRole(claims, "ADMIN,USER");
@@ -35,12 +47,8 @@ public class JwtUtil {
             hasRole = hasRole(claims, "ADMIN");
         }
 
-        boolean isTokenExpired = claims.getExpiration().before(new Date());
-
-        return (!isTokenExpired && hasRole);
+        return !isTokenExpired && hasRole;
     }
-
-
     private boolean hasRole(Claims claims, String role) {
         String roles = (String)claims.get("roles");
 

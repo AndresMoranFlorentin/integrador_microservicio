@@ -31,7 +31,6 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config>{
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
 
                 String path = exchange.getRequest().getURI().getPath();
-
                 String httpMethod = exchange.getRequest().getMethod().name();
                 System.out.println("http method: " + httpMethod+"  ----------------------------------------------------------------");
 
