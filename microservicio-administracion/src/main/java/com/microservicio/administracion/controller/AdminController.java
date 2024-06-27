@@ -91,19 +91,9 @@ public class AdminController {
     *    en operación, versus la cantidad de monopatines actualmente en mantenimiento
     */
     @GetMapping("/reporteMonopatines/")
-    public ResponseEntity<?> getReporteMonopatines(){
+    public ResponseEntity<?> getReporteMonopatines() {
         ReporteMonopatinesDTO monopatines = adminService.getReporteMonopatines();
         return ResponseEntity.ok(monopatines);
-    }
-
-    /*
-    *  3g) Listado de los monopatines cercanos a mi zona, para poder encontrar
-    *    un monopatín cerca de mi ubicación
-    */
-    @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
-    public List<MonopatinDto> getMonopatinesMasCercanos(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
-        List<MonopatinDto> monopatinesCercanos = adminService.getMonopatinesCercanos(latitud, longitud);
-        return monopatinesCercanos;
     }
 
     @PostMapping("/generarTicket")

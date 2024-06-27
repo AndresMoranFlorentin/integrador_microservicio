@@ -15,15 +15,12 @@ public interface MonopatinClient {
 
 
     @GetMapping("monopatin/reporteViajes/{cantViajes}/{year}")
-    List<MonopatinDto> getMonopatinesConMasViajes(@PathVariable int cantViajes, @PathVariable int year);
+    List<MonopatinDto> getReporteViajes(@PathVariable int cantViajes, @PathVariable int year);
 
     @GetMapping("monopatin/disponiblesVsIndisponibles")
     ReporteMonopatinesDTO getDisponibles();
 
-    @GetMapping("monopatin/monopatines-cercanos/latitud/{latitud}/longitud/{longitud}")
-    List<MonopatinDto> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud);
-
-    @PutMapping("tarifa/actualizar-tarifa/{tarifa}")
+   @PutMapping("tarifa/actualizar-tarifa/{tarifa}")
     String setearTarifas(@PathVariable Double tarifa);
 
     @PutMapping("monopatin/mantener/{id}")

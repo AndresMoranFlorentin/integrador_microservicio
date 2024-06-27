@@ -57,16 +57,9 @@ public class AdminService {
         return rmDTO;
     }
 
-
-    @Transactional
-    public List<MonopatinDto> getMonopatinesCercanos(Double latitud, Double longitud) {
-        List<MonopatinDto> monopatinesCercanos = monopatinClient.getMonopatinesCercanos(latitud, longitud);
-        return monopatinesCercanos;
-    }
-
     @Transactional
     public  List<MonopatinDto>  getMonopatinesConMasViajes(int cantViajes, int year ){
-        List<MonopatinDto> monopatines = monopatinClient.getMonopatinesConMasViajes(cantViajes, year);
+        List<MonopatinDto> monopatines = monopatinClient.getReporteViajes(cantViajes, year);
         return monopatines;
     }
 

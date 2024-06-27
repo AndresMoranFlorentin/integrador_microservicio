@@ -30,9 +30,9 @@ public class ControladorCliente {
     }
     /*Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
         un monopatín cerca de mi ubicación*/
-    @GetMapping("/monopatines-mas-cercanos/ubicacion/{ubicacion}")
-    public ResponseEntity<?> getMonopatinesMasCerca(@PathVariable("ubicacion")String ubicacion){
-       List<MonopatinDTO> monopatinesCer=servicioCliente.getMonopatinesCercanos(ubicacion);
+    @GetMapping("/monopatines-mas-cercanos/latitud/{latitud}/longitud/{longitud}")
+    public ResponseEntity<?> getMonopatinesMasCerca(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
+       List<MonopatinDto> monopatinesCer=servicioCliente.getMonopatinesCercanos(latitud,longitud);
        if(monopatinesCer.isEmpty()){
            return ResponseEntity.ok("no se encontraron monopatines cercanos a su ubicacion");
        }

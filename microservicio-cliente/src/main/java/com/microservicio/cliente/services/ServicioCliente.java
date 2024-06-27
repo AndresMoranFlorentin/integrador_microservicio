@@ -2,10 +2,7 @@ package com.microservicio.cliente.services;
 
 import com.microservicio.cliente.clients.ClientFeignAdministracion;
 import com.microservicio.cliente.clients.ClientMonopatin;
-import com.microservicio.cliente.dto.CuentaDTO;
-import com.microservicio.cliente.dto.UsuarioDto;
-import com.microservicio.cliente.dto.ViajeDto;
-import com.microservicio.cliente.dto.ViajeInicioDto;
+import com.microservicio.cliente.dto.*;
 import com.microservicio.cliente.models.MonopatinDTO;
 import com.microservicio.cliente.models.Viaje;
 import com.microservicio.cliente.entities.Cuenta;
@@ -49,8 +46,8 @@ public class ServicioCliente {
         return viaje;
     }
     @Transactional
-    public List<MonopatinDTO> getMonopatinesCercanos(@PathVariable("ubicacion") String ubicacion) {
-        List<MonopatinDTO> lista=clientFeignAdministracion.getMonopatinesMasCercanos(ubicacion);
+    public List<MonopatinDto> getMonopatinesCercanos(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud) {
+        List<MonopatinDto> lista=clientMonopatin.getMonopatinesCercanos(latitud,longitud);
         if(lista.isEmpty()){
             return null;
         }
