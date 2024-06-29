@@ -28,4 +28,5 @@ public interface MonopatinRepository extends JpaRepository <Monopatin, Long>{
             "ORDER BY m.kmAcumulados DESC")
     List<Object[]> getPorKmConPausa();
 
+
 }

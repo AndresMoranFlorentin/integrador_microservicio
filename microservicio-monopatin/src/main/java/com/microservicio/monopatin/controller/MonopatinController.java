@@ -59,8 +59,8 @@ public class MonopatinController {
         }
         return ResponseEntity.ok(m);
     }
-    @GetMapping("/reporteXkmConPausa")
-    List<MonopatinDtoConPausa> getMonopatinesPorKmConPausa(){
+    @GetMapping("/ConPausa")
+    List<MonopatinDto> getMonopatinesPorKmConPausa(){
         return monopatinService.getMonopatinesPorKmConPausa();
     }
 

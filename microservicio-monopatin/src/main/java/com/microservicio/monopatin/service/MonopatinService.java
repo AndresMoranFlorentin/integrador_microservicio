@@ -5,6 +5,7 @@ import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
 import com.microservicio.monopatin.dto.MonopatinDtoNuevo;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.repository.MonopatinRepository;
+import com.microservicio.monopatin.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,10 @@ public class MonopatinService {
     @Autowired
     private MonopatinRepository monopatinRepository;
     private Double distancia_cercana = 1000.0;
+
+    @Autowired
+    private ViajeRepository viajeRepository;
+
 
     @Transactional
     public MonopatinDto save(String modelo) {
@@ -90,23 +95,17 @@ public class MonopatinService {
         return lista;
     }
 
-    public List<MonopatinDtoConPausa> getMonopatinesPorKmConPausa() {
-        List<Object[]> resultados = monopatinRepository.getPorKmConPausa();
-        List<MonopatinDtoConPausa> listaDto = new ArrayList<>();
+    public List<MonopatinDto> getMonopatinesPorKmConPausa() {
+        List<Long> idMonopatinesConPausa = viajeRepository.getIdMonopatinConPausa();
+        List<MonopatinDto> monopatinDtoConPausas = new ArrayList<>();
 
-        for (Object[] resultado : resultados) {
-            Long idMonopatin = (Long) resultado[0];
-            String modelo = (String) resultado[1];
-            int kmAcumulados = (int) resultado[2];
-            Double tiempoPausado = (Double) resultado[3];
-            System.out.println("id:" + idMonopatin + ", " + modelo + "," + kmAcumulados + "," + tiempoPausado);
-
-            MonopatinDtoConPausa dto = new MonopatinDtoConPausa(idMonopatin, modelo, kmAcumulados, tiempoPausado);
-            System.out.println(dto);
-            listaDto.add(dto);
+        for (Long idMonopatin : idMonopatinesConPausa){
+            Optional<Monopatin> m=monopatinRepository.findById(idMonopatin);
+            Monopatin m1 = m.get();
+            MonopatinDto dto = new MonopatinDto(m1);
+            monopatinDtoConPausas.add(dto);
         }
-
-        return listaDto;
+        return monopatinDtoConPausas;
     }
 }
 

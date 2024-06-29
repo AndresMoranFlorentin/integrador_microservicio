@@ -25,9 +25,6 @@ public class JwtUtil {
 
         boolean isTokenExpired = claims.getExpiration().before(new Date());
         System.out.println("claims: " + claims);
-        // Verifica si el usuario tiene el rol de "super-admin" (ADMIN, USER, MAINTENANCE)
-
-      //  System.out.println(path);
 
         if (path.contains("/admin")) {
             System.out.println("Cualquier cosa administrador");
@@ -35,26 +32,22 @@ public class JwtUtil {
 
         }
         else if (path.contains("/cliente")) {
-            System.out.println("Cualquier cosa cliente");
             hasRole = hasRole(claims, "ADMIN,USER");
-
         }
         else if (path.contains("/mantenimiento")) {
-            System.out.println("Cualquier cosa mantenimiento");
             hasRole = hasRole(claims, "ADMIN,MAINTENANCE");
         }
-        else if (path.contains("/reporteXkmConPausa")) {
-            System.out.println("entro aca");
-            hasRole = hasRole(claims, "MAINTENANCE");
-            System.out.println(hasRole);
-            System.out.println(hasRole(claims, "MAINTENANCE"));
-            System.out.println(path);
-
+        if(path.contains("/monopatin")){
+            if (path.contains("/reporteXkm") || path.contains("/ConPausa")) {
+                hasRole = hasRole(claims, "ADMIN, MAINTENANCE");
+            }
+            if(path.contains("/monopatines-cercanos")){
+                hasRole = hasRole(claims, "ADMIN, USER");
+            }else{
+                hasRole = hasRole(claims, "ADMIN");
+            }
         }
-
-//        } else if (path.contains("/api/mantenimiento/"))
-        //        return (!isTokenExpired && hasRole);
-        return (hasRole);
+        return (!isTokenExpired && hasRole);
     }
 
     private boolean hasRole(Claims claims, String role) {
