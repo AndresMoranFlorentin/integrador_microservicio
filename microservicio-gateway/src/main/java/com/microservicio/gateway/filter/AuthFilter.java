@@ -25,6 +25,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config>{
         return ((exchange, chain)->{
 
             if(routeValidator.isSecured.test(exchange.getRequest())) {
+
                 if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     throw new RuntimeException("Missing auth header");
                 }
