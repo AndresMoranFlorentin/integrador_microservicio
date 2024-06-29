@@ -1,39 +1,31 @@
 package com.microservicio.mantenimiento.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "mantenimiento")
+@Document(collection = "mantenimientos")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mantenimiento implements Serializable {
+public class Mantenimiento{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+     private ObjectId id;
 
-    @Column
-    private Long id_monopatin;
+     private Long id_monopatin;
 
-    @Column
-    private LocalDateTime fecha_inicio;
+     private LocalDateTime fecha_inicio;
 
-    @Column
-    private LocalDateTime fecha_fin;
+     private LocalDateTime fecha_fin;
 
-    @Column
-    private String descripcion;
+     private String descripcion;
 
-    @Column
-    private int km_monopatin;
+     private int km_monopatin;
 
     public Mantenimiento(Long id_monopatin, int km_monopatin) {
         this.id_monopatin = id_monopatin;
