@@ -29,24 +29,21 @@ Microservicios:
 
 Ejemplos:
 
-{
-    "username": "super-admin",
-    "password": "password",
-    "roles":["ADMIN,MAINTENANCE,USER"]
-}
-
+Admin: Puede acceder a toda la funcionalidad de los microservicios.
 {
     "username": "admin",
     "password": "password",
     "roles":["ADMIN"]
 }
 
+Mantenimiento: Ademas de la funcionalidad que corresponde a su microservicio puede acceder a dos endpoints (/reporteXkm y /ConPausa) desde monopatín.
 {
     "username": "maintenance",
     "password": "password",
     "roles":["MAINTENANCE"]
 }
 
+User: Ademas de la funcionalidad que corresponde a su microservicio puede acceder a un endpoint (/monopatines-cercanos) desde monopatín.
 {
     "username": "user",
     "password": "password",
