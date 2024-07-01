@@ -1,0 +1,295 @@
+openapi: 3.0.0
+info:
+  description: Microservicio Spring Boot Monopatines.
+  version: 1.0.0
+  title: API de Microservicio Spring Boot Monopatines
+servers:
+  - url: 'https://localhost:8080/api/monopatin'
+    description: 'Microservicio Spring Boot Monopatines'
+paths:
+  /api/monopatin/generar-monopatin/{modelo}:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Generar monopatín
+      description: Este método crea un nuevo monopatín.
+      parameters:
+        - name: modelo
+          in: path
+          required: true
+          description: Modelo del monopatín a crear
+          schema:
+            type: string
+      responses:
+        201:
+          description: Monopatín creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonopatinDto'
+        400:
+          description: Operación incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/monopatin/borrar/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Borrar monopatín
+      description: Este método borra un monopatín por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del monopatín a borrar
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Monopatín borrado correctamente
+        400:
+          description: Operación incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/monopatin/mantener/{id}:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Mantener monopatín
+      description: Este método pone un monopatín en mantenimiento.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del monopatín a mantener
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Monopatín puesto en mantenimiento correctamente
+        400:
+          description: Operación incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/monopatin/monopatin/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener monopatín
+      description: Este método obtiene un monopatín por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del monopatín a obtener
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Monopatín obtenido correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonopatinDto'
+        404:
+          description: Monopatín no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/monopatin/disponible/{id}:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Poner monopatín disponible
+      description: Este método pone un monopatín como disponible.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del monopatín a poner disponible
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Monopatín puesto disponible correctamente
+        400:
+          description: Operación incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/monopatin/reporteXkm:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener reporte por kilómetros
+      description: Este método obtiene un reporte de monopatines por kilómetros.
+      responses:
+        200:
+          description: Reporte obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonopatinDto'
+        204:
+          description: No hay contenido
+  /api/monopatin/ConPausa:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener monopatines con pausa
+      description: Este método obtiene los monopatines con pausa por kilómetros.
+      responses:
+        200:
+          description: Monopatines obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonopatinDto'
+  /api/monopatin/reporteViajes/{cantViajes}/{year}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener reporte de viajes
+      description: Este método obtiene un reporte de monopatines por cantidad de viajes y año.
+      parameters:
+        - name: cantViajes
+          in: path
+          required: true
+          description: Cantidad de viajes
+          schema:
+            type: integer
+        - name: year
+          in: path
+          required: true
+          description: Año del reporte
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Reporte obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonopatinDto'
+        204:
+          description: No hay contenido
+  /api/monopatin/disponiblesVsIndisponibles:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener monopatines disponibles vs indisponibles
+      description: Este método obtiene un reporte de monopatines disponibles vs. no disponibles.
+      responses:
+        200:
+          description: Reporte obtenido correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteMonopatinesDto'
+  /api/monopatin/monopatines-cercanos/latitud/{latitud}/longitud/{longitud}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - monopatin
+      summary: Obtener monopatines cercanos
+      description: Este método obtiene monopatines cercanos a una ubicación dada.
+      parameters:
+        - name: latitud
+          in: path
+          required: true
+          description: Latitud de la ubicación
+          schema:
+            type: number
+            format: double
+        - name: longitud
+          in: path
+          required: true
+          description: Longitud de la ubicación
+          schema:
+            type: number
+            format: double
+      responses:
+        200:
+          description: Monopatines obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonopatinDto'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    MonopatinDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        modelo:
+          type: string
+        ubicacion:
+          type: string
+        kmAcumulados:
+          type: integer
+    ReporteMonopatinesDto:
+      type: object
+      properties:
+        enMantenimiento:
+          type: integer
+        operativos:
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          description: Código de error
+          type: string
+        status:
+          description: HTTP status
+          type: integer
+          format: int32
+        type:
+          description: Tipo de error
+          type: string
+        message:
+          description: Mensaje de error
+          type: string
