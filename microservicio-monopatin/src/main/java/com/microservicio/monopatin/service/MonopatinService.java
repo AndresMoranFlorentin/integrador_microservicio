@@ -1,8 +1,6 @@
 package com.microservicio.monopatin.service;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
-import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
-import com.microservicio.monopatin.dto.MonopatinDtoNuevo;
 import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.repository.MonopatinRepository;
 import com.microservicio.monopatin.repository.ViajeRepository;

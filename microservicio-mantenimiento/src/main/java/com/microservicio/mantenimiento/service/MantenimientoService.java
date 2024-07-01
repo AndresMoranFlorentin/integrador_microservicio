@@ -47,23 +47,6 @@ public class MantenimientoService {
         }
     }
 
-    /**
-     * @Transactional
-     *     public EstudianteResponseDTO update(Long id, EstudianteRequestDTO entity) throws Exception {
-     *         Estudiante estudiante = repoEstudiante.findById(id)
-     *                 .orElseThrow(() -> new NotFoundException("Estudiante", id));
-     *
-     *         estudiante.setNombre(entity.getNombre());
-     *         estudiante.setApellido(entity.getApellido());
-     *         estudiante.setGenero(entity.getGenero());
-     *         estudiante.setEdad(entity.getEdad());
-     *         estudiante.setCiudad(entity.getCiudad());
-     *         estudiante.setNum_Libreta(entity.getNum_Libreta());
-     *
-     *         repoEstudiante.save(estudiante);
-     *         return new EstudianteResponseDTO(estudiante);
-     */
-
     @Transactional
     public List<?> getMonopatinesPorKm(@PathVariable boolean pausa) throws Exception {
         List<?> monopatines=new ArrayList();

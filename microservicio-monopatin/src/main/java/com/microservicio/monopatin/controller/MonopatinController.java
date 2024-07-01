@@ -1,10 +1,7 @@
 package com.microservicio.monopatin.controller;
 
 import com.microservicio.monopatin.dto.MonopatinDto;
-import com.microservicio.monopatin.dto.MonopatinDtoConPausa;
-import com.microservicio.monopatin.dto.MonopatinDtoNuevo;
 import com.microservicio.monopatin.dto.ReporteMonopatinesDto;
-import com.microservicio.monopatin.model.Monopatin;
 import com.microservicio.monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

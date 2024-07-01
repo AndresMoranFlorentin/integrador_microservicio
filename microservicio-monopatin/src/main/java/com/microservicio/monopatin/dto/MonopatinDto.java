@@ -1,12 +1,9 @@
 package com.microservicio.monopatin.dto;
 
 import com.microservicio.monopatin.model.Monopatin;
-import com.microservicio.monopatin.model.Tarifa;
-import com.microservicio.monopatin.model.Viaje;
 import lombok.Getter;
 
 
-import java.util.List;
 
 @Getter
 public class MonopatinDto {

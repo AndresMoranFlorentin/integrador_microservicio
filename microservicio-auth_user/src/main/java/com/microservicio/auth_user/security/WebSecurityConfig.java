@@ -43,9 +43,9 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests( req -> {
-			req.requestMatchers("/api/auth/**").permitAll();
-					//.requestMatchers("/api/admin/**").hasRole("ADMIN");
+		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(req -> {
+			req.requestMatchers("/api/auth/**").permitAll()
+					.requestMatchers("/documentation/json/**", "/documentation/swagger-ui/**").permitAll();
 		});
 		
 		return http.build();

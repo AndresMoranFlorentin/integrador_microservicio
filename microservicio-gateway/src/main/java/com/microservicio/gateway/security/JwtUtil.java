@@ -47,6 +47,9 @@ public class JwtUtil {
                 hasRole = hasRole(claims, "ADMIN");
             }
         }
+        if(path.contains("/documentation")){
+            hasRole = true;
+        }
         return (!isTokenExpired && hasRole);
     }
 
