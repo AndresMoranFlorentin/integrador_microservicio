@@ -30,25 +30,30 @@ public class JwtUtil {
             System.out.println("Cualquier cosa administrador");
             hasRole = hasRole(claims, "ADMIN");
 
-        }
-        else if (path.contains("/cliente")) {
+        } else if (path.contains("/cliente")) {
             hasRole = hasRole(claims, "ADMIN,USER");
-        }
-        else if (path.contains("/mantenimiento")) {
+        } else if (path.contains("/mantenimiento")) {
             hasRole = hasRole(claims, "ADMIN,MAINTENANCE");
         }
-        if(path.contains("/monopatin")){
+        if (path.contains("/monopatin")) {
             if (path.contains("/reporteXkm") || path.contains("/ConPausa")) {
                 hasRole = hasRole(claims, "ADMIN, MAINTENANCE");
             }
-            if(path.contains("/monopatines-cercanos")){
+            if (path.contains("/monopatines-cercanos")) {
                 hasRole = hasRole(claims, "ADMIN, USER");
-            }else{
+            } else {
                 hasRole = hasRole(claims, "ADMIN");
             }
         }
-        if(path.contains("/documentation")){
-            hasRole = true;
+        if (path.contains("/viaje")) {
+            if (path.contains("/finalizar-viaje")) {
+                hasRole = hasRole(claims, "ADMIN, USER");
+            } else {
+                hasRole = hasRole(claims, "ADMIN");
+            }
+        }
+        if (path.contains("/tarifa")) {
+            hasRole = hasRole(claims, "ADMIN");
         }
         return (!isTokenExpired && hasRole);
     }

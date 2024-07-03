@@ -45,12 +45,12 @@ public class ViajeService {
             v.setCosto(tarifaExtra);
             viajeRepository.save(v);
             ViajeDto viajeDto = new ViajeDto(v);
-            adminClient.generarTicket(viajeDto);
+          //  adminClient.generarTicket(viajeDto);
         } else {
             v.setCosto(tarifaPrecio);
             viajeRepository.save(v);
             ViajeDto viajeDto = new ViajeDto(v);
-            adminClient.generarTicket(viajeDto);
+          //  adminClient.generarTicket(viajeDto);
         }
     }
 
